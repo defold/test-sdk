@@ -6,15 +6,23 @@ on:
       - master
   schedule:
     - cron: 0 2 * * *
-  
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '11.0.1'
+        architecture: x64
     - name: Run a multi-line script
       run: |
         echo Add other actions to build,
+        export CHANNEL="alpha"
+        export BUILD_SERVER="https://build-stage.defold.com"
+        export PLATFORMS="js-web,x86-win32,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android,arm64-android"
+        export PROJECTS="https://github.com/defold/extension-webview/archive/master.zip, https://github.com/defold/extension-fbinstant/archive/master.zip, https://github.com/defold/extension-html5/archive/master.zip, https://github.com/defold/extension-facebook/archive/master.zip, https://github.com/defold/extension-push/archive/master.zip, https://github.com/defold/extension-firebase-core/archive/master.zip, https://github.com/defold/extension-gpgs/archive/master.zip"
         ./run-tests.sh

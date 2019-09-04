@@ -134,7 +134,7 @@ function download_java() {
 	fi
 }
 
-download_java
+#download_java
 
 log "Using Java"
 which java

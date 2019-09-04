@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: 0 2 * * *
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        ./run-tests.sh

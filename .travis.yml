@@ -9,7 +9,6 @@ env:
     - DEFOLD_USER=john.doe@gmail.com
 
 script: |
-    echo Add other actions to build,
     export CHANNEL="alpha"
     export BUILD_SERVER="https://build-stage.defold.com"
     export PLATFORMS="js-web,x86-win32,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android,arm64-android"

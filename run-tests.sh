@@ -54,11 +54,11 @@ function cleanup() {
 	log "Removing" ./$BUILD_FOLDER
 	rm -rf ./$BUILD_FOLDER
 	log "Removing jre"
-	rm -rf ./jre
+	rm -rf ./jre || true
 	log "Removing tar files"
-	rm ./*.tar.gz*
+	rm ./*.tar.gz* || true
 	log "Removing jar files"
-	rm ./*.jar
+	rm ./*.jar || true
 }
 trap cleanup 0
 

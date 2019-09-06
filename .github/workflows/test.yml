@@ -33,11 +33,8 @@ jobs:
         export PROJECTS="${PROJECTS}, https://github.com/AGulev/DefVideoAds/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/Lerg/extension-admob/archive/master.zip"
         ./run-tests.sh
-
-  notify:
-    steps:
-    - name: Notify failed tests
-      if: jobs.test.status == "failure"
+    - name: Notify if tests failed
+      if: failure()
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       uses: Ilshidur/action-slack@master

@@ -23,5 +23,12 @@ jobs:
         export CHANNEL="alpha"
         export BUILD_SERVER="https://build-stage.defold.com"
         export PLATFORMS="js-web,x86-win32,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android,arm64-android"
-        export PROJECTS="https://github.com/defold/extension-webview/archive/master.zip, https://github.com/defold/extension-fbinstant/archive/master.zip, https://github.com/defold/extension-html5/archive/master.zip, https://github.com/defold/extension-facebook/archive/master.zip, https://github.com/defold/extension-push/archive/master.zip, https://github.com/defold/extension-firebase-core/archive/master.zip, https://github.com/defold/extension-gpgs/archive/master.zip"
+        export PROJECTS="https://github.com/defold/extension-webview/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-fbinstant/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-html5/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-facebook/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-push/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-firebase-core/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-gpgs/archive/master.zip"
+        PROJECTS = "${PROJECTS}, https://github.com/defold/extension-firebase-analytics/archive/master.zip"
         ./run-tests.sh

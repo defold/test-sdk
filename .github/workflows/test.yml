@@ -8,17 +8,15 @@ on:
     - cron: 0 2 * * *
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-java@v1
       with:
         java-version: '11.0.1'
         architecture: x64
-    - name: Run a multi-line script
+    - name: Run tests
       run: |
         export CHANNEL="alpha"
         export BUILD_SERVER="https://build-stage.defold.com"
@@ -35,3 +33,15 @@ jobs:
         export PROJECTS="${PROJECTS}, https://github.com/AGulev/DefVideoAds/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/Lerg/extension-admob/archive/master.zip"
         ./run-tests.sh
+
+  notify:
+    steps:
+    - name: Notify failed tests
+      if: jobs.test.status == "failure"
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      uses: Ilshidur/action-slack@master
+      with:
+        args: 'SDK tests failed'
+      
+      

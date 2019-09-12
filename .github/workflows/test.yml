@@ -39,11 +39,12 @@ jobs:
         export PROJECTS="${PROJECTS}, https://github.com/britzl/defold-sharing/archive/master.zip"
         ./run-tests.sh
     - name: Notify if tests failed
-      if: failure()
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      uses: Ilshidur/action-slack@master
+      uses: homoluctus/slatify@master
+        if: failure()
       with:
-        args: 'SDK tests failed'
+        type: ${{ job.status }}
+        job_name: 'SDK tests'
+        channel: '#defold-alarms-build'
+        url: ${{ secrets.SLACK_WEBHOOK }}
       
       

@@ -37,6 +37,7 @@ jobs:
         export PROJECTS="${PROJECTS}, https://github.com/subsoap/defos/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/AGulev/DefVideoAds/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/Lerg/extension-admob/archive/master.zip"
+        export PROJECTS="${PROJECTS}, https://github.com/Lerg/extension-directories/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/dapetcu21/defold-fmod/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip"
         ./run-tests.sh

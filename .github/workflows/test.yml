@@ -40,7 +40,7 @@ jobs:
         ./run-tests.sh
     - name: Notify if tests failed
       uses: homoluctus/slatify@master
-        if: failure()
+      if: failure()
       with:
         type: ${{ job.status }}
         job_name: 'SDK tests'

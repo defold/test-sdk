@@ -31,6 +31,7 @@ jobs:
         export PROJECTS="${PROJECTS}, https://github.com/defold/extension-firebase-analytics/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/defold/extension-videoplayer-native/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/defold/extension-adinfo/archive/master.zip"
+        export PROJECTS="${PROJECTS}, https://github.com/defold/extension-iac/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/britzl/defold-screenshot/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/britzl/defold-luasec/archive/master.zip"
         export PROJECTS="${PROJECTS}, https://github.com/britzl/defold-sharing/archive/master.zip"

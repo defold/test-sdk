@@ -39,10 +39,10 @@ test:
             PLATFORMS: "js-web,x86-win32,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android,arm64-android"
             PROJECTS: ${{ matrix.projects }}
         - name: Notify if tests failed
-            uses: homoluctus/slatify@master
-            if: failure()
-            with:
-                type: ${{ job.status }}
-                job_name: 'SDK tests'
-                channel: '#defold-alarms-build'
-                url: ${{ secrets.SLACK_WEBHOOK }}
+          uses: homoluctus/slatify@master
+          if: failure()
+          with:
+            type: ${{ job.status }}
+            job_name: 'SDK tests'
+            channel: '#defold-alarms-build'
+            url: ${{ secrets.SLACK_WEBHOOK }}

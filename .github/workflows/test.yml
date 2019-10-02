@@ -15,7 +15,6 @@ jobs:
             max-parallel: 1
             matrix:
                 projects: [
-                    "https://github.com/AGulev/DefVideoAds/archive/master.zip",
                     "https://github.com/Lerg/extension-admob/archive/master.zip",
                     "https://github.com/Lerg/extension-directories/archive/master.zip",
                     "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
@@ -56,7 +55,6 @@ jobs:
             max-parallel: 1
             matrix:
                 projects: [
-                    "https://github.com/AGulev/DefVideoAds/archive/master.zip",
                     "https://github.com/Lerg/extension-admob/archive/master.zip",
                     "https://github.com/Lerg/extension-directories/archive/master.zip",
                     "https://github.com/dapetcu21/defold-fmod/archive/master.zip",

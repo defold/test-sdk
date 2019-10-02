@@ -13,7 +13,7 @@ jobs:
         strategy:
             max-parallel: 1
             matrix:
-                projects: [
+                projects_orignal: [
                     "https://github.com/defold/extension-webview/archive/master.zip",
                     "https://github.com/defold/extension-iac/archive/master.zip",
                     "https://github.com/defold/extension-iap/archive/master.zip",
@@ -30,6 +30,13 @@ jobs:
                     "https://github.com/britzl/defold-luasec/archive/master.zip",
                     "https://github.com/britzl/defold-sharing/archive/master.zip",
                     "https://github.com/subsoap/defos/archive/master.zip",
+                    "https://github.com/AGulev/DefVideoAds/archive/master.zip",
+                    "https://github.com/Lerg/extension-admob/archive/master.zip",
+                    "https://github.com/Lerg/extension-directories/archive/master.zip",
+                    "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
+                    "https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip"
+                ]
+                projects: [
                     "https://github.com/AGulev/DefVideoAds/archive/master.zip",
                     "https://github.com/Lerg/extension-admob/archive/master.zip",
                     "https://github.com/Lerg/extension-directories/archive/master.zip",
@@ -70,7 +77,7 @@ jobs:
         strategy:
             max-parallel: 1
             matrix:
-                projects: [
+                projects_original: [
                     "https://github.com/defold/extension-webview/archive/master.zip",
                     "https://github.com/defold/extension-fbinstant/archive/master.zip",
                     "https://github.com/defold/extension-html5/archive/master.zip",
@@ -85,6 +92,13 @@ jobs:
                     "https://github.com/britzl/defold-luasec/archive/master.zip",
                     "https://github.com/britzl/defold-sharing/archive/master.zip",
                     "https://github.com/subsoap/defos/archive/master.zip",
+                    "https://github.com/AGulev/DefVideoAds/archive/master.zip",
+                    "https://github.com/Lerg/extension-admob/archive/master.zip",
+                    "https://github.com/Lerg/extension-directories/archive/master.zip",
+                    "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
+                    "https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip"
+                ]
+                projects: [
                     "https://github.com/AGulev/DefVideoAds/archive/master.zip",
                     "https://github.com/Lerg/extension-admob/archive/master.zip",
                     "https://github.com/Lerg/extension-directories/archive/master.zip",

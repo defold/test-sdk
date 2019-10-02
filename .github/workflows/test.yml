@@ -15,10 +15,7 @@ jobs:
             max-parallel: 1
             matrix:
                 projects: [
-                    "https://github.com/Lerg/extension-admob/archive/master.zip",
-                    "https://github.com/Lerg/extension-directories/archive/master.zip",
-                    "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
-                    "https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip"
+                    "https://github.com/AGulev/DefVideoAds/archive/master.zip"
                 ]
         steps:
             - uses: actions/checkout@v1
@@ -55,10 +52,7 @@ jobs:
             max-parallel: 1
             matrix:
                 projects: [
-                    "https://github.com/Lerg/extension-admob/archive/master.zip",
-                    "https://github.com/Lerg/extension-directories/archive/master.zip",
-                    "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
-                    "https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip"
+                    "https://github.com/AGulev/DefVideoAds/archive/master.zip"
                 ]
         steps:
             - uses: actions/checkout@v1

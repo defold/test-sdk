@@ -11,7 +11,7 @@ jobs:
     test:
         runs-on: ubuntu-latest
         strategy:
-            max-parallel: 2
+            max-parallel: 1
             matrix:
                 projects: [
                     "https://github.com/defold/extension-webview/archive/master.zip",

@@ -1,14 +1,14 @@
-name: CI
+name: "extender:stage channel:stable"
 
 on:
   push:
     branches:
       - master
   schedule:
-    - cron: 0 2 * * *
+    - cron: 0 3 * * *
 
 jobs:
-    test-stable:
+    test:
         runs-on: ubuntu-latest
         strategy:
             max-parallel: 1
@@ -54,6 +54,6 @@ jobs:
               if: failure()
               with:
                 type: ${{ job.status }}
-                job_name: 'SDK tests'
+                job_name: 'SDK tests (stable)'
                 channel: '#defold-alarms-build'
                 url: ${{ secrets.SLACK_WEBHOOK }}

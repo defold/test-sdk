@@ -1,4 +1,4 @@
-name: CI
+name: "extender:stage channel:alpha"
 
 on:
   push:
@@ -61,6 +61,6 @@ jobs:
               if: failure()
               with:
                 type: ${{ job.status }}
-                job_name: 'SDK tests'
+                job_name: 'SDK tests (alpha)'
                 channel: '#defold-alarms-build'
                 url: ${{ secrets.SLACK_WEBHOOK }}

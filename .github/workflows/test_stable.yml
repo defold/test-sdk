@@ -8,12 +8,12 @@ on:
     - cron: 0 2 * * *
 
 jobs:
-    test:
+    test-stable:
         runs-on: ubuntu-latest
         strategy:
-            max-parallel: 2
+            max-parallel: 1
             matrix:
-              projects: [
+                projects: [
                   "https://github.com/defold/extension-webview/archive/master.zip",
                   "https://github.com/defold/extension-iac/archive/master.zip",
                   "https://github.com/defold/extension-iap/archive/master.zip",
@@ -42,17 +42,10 @@ jobs:
               with:
                 java-version: '11.0.1'
                 architecture: x64
-            - name: Run tests (alpha)
+            - name: Run tests (stable)
               run: ./run-tests.sh
               env:
-                CHANNEL: "alpha"
-                BUILD_SERVER: "https://build-stage.defold.com"
-                PLATFORMS: "js-web,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android"
-                PROJECTS: ${{ matrix.projects }}
-            - name: Run tests (beta)
-              run: ./run-tests.sh
-              env:
-                CHANNEL: "beta"
+                CHANNEL: "stable"
                 BUILD_SERVER: "https://build-stage.defold.com"
                 PLATFORMS: "js-web,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android"
                 PROJECTS: ${{ matrix.projects }}

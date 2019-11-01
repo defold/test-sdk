@@ -1,11 +1,8 @@
-name: "extender:stage channel:alpha"
+name: "extender:stage channel:beta"
 
 on:
-  push:
-    branches:
-      - master
   schedule:
-    - cron: 0 2 * * *
+    - cron: 0 3 * * *
 
 jobs:
     test:
@@ -42,13 +39,6 @@ jobs:
               with:
                 java-version: '11.0.1'
                 architecture: x64
-            - name: Run tests (alpha)
-              run: ./run-tests.sh
-              env:
-                CHANNEL: "alpha"
-                BUILD_SERVER: "https://build-stage.defold.com"
-                PLATFORMS: "js-web,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android"
-                PROJECTS: ${{ matrix.projects }}
             - name: Run tests (beta)
               run: ./run-tests.sh
               env:
@@ -61,6 +51,6 @@ jobs:
               if: failure()
               with:
                 type: ${{ job.status }}
-                job_name: 'SDK tests (alpha)'
+                job_name: 'SDK tests (beta)'
                 channel: '#defold-alarms-build'
                 url: ${{ secrets.SLACK_WEBHOOK }}

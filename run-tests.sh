@@ -9,7 +9,13 @@ if [ -z "$BUILD_SERVER" ]; then
 	BUILD_SERVER=https://build-stage.defold.com
 	#BUILD_SERVER=http://localhost:9000
 fi
+
+log "**********************************"
 log "Using extender server ${BUILD_SERVER}"
+SERVER_VERSION=(wget -q -O - $BUILD_SERVER)
+log "${SERVER_VERSION}"
+log "**********************************"
+
 
 if [ -z "$PLATFORMS" ]; then
 	PLATFORMS="js-web,x86-win32,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android"

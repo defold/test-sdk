@@ -31,7 +31,7 @@ jobs:
                   "https://github.com/britzl/defold-sharing/archive/master.zip",
                   "https://github.com/AGulev/DefVideoAds/archive/master.zip",
                   "https://github.com/subsoap/defos/archive/master.zip",
-                  "https://github.com/Lerg/extension-admob/archive/master.zip",
+                  "https://github.com/Lerg/extension-admob/archive/dev.zip",
                   "https://github.com/Lerg/extension-directories/archive/master.zip",
                   "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
                   "https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip"

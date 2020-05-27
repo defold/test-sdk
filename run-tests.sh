@@ -101,6 +101,7 @@ check_failed_builds() {
 build_project() {
 	local platforms=(${1//,/ })
 	local url=$2
+	local variant=$3
 	download_project $url
 
 	local projectfile=`find $BUILD_FOLDER/$name -name game.project`
@@ -113,7 +114,7 @@ build_project() {
 		log "Building $url for ${i}"
 
 		set +e
-		bob --platform ${i} build --build-server $BUILD_SERVER --defoldsdk ${SHA1}
+		bob --platform ${i} build --build-server $BUILD_SERVER --defoldsdk ${SHA1} --variant=$variant
 		check_error $? $url $i
 		set -e
 	done
@@ -150,7 +151,9 @@ download_bob
 
 PROJECTS=(${PROJECTS//,/ })
 for project in ${PROJECTS[@]}; do
-	build_project $PLATFORMS $project
+	build_project $PLATFORMS $project debug
+	build_project $PLATFORMS $project release
+	build_project $PLATFORMS $project headless
 done
 
 cd ${SCRIPTDIR}

@@ -63,10 +63,10 @@ download_bob() {
 	log "Downloading BOB"
 
 	if [ ! -z ${CHANNEL} ]; then
-		SHA1=$(curl -s http://d.defold.com/${CHANNEL}/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
+		SHA1=$(curl -H 'Cache-Control: no-cache' -s http://d.defold.com/${CHANNEL}/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
 		log "Using SHA1 of latest release on channel ${CHANNEL} (SHA1: '${SHA1}')"
 	elif [ -z ${SHA1} ]; then
-		SHA1=$(curl -s http://d.defold.com/stable/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
+		SHA1=$(curl -H 'Cache-Control: no-cache' -s http://d.defold.com/stable/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
 		log "Using SHA1 of latest stable release (SHA1: '${SHA1}')"
 	else
 		log "Using predefined SHA1 (SHA1: '${SHA1}')"

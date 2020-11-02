@@ -15,7 +15,6 @@ jobs:
             matrix:
               projects: [
                   "https://github.com/defold/extension-websocket/archive/master.zip",
-                  "https://github.com/defold/extension-vulkan/archive/master.zip",
                   "https://github.com/defold/extension-webview/archive/master.zip",
                   "https://github.com/defold/extension-iac/archive/master.zip",
                   "https://github.com/defold/extension-iap/archive/master.zip",

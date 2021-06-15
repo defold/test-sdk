@@ -123,26 +123,6 @@ build_project() {
 	rm -rf $projectdir
 }
 
-function download_java() {
-    local package=jre-8u102-linux-x64.tar.gz
-    local host=`uname`
-    if [ "$host" == "Darwin" ]; then
-    	package=jre-8u102-macosx-x64.tar.gz
-    fi
-	mkdir jre
-	wget -q https://s3-eu-west-1.amazonaws.com/defold-packages/$package
-	tar -C jre -xzf $package --strip-components=1
-	PWD=`pwd`
-	export JAVA_HOME=${PWD}/jre
-    if [ "$host" == "Darwin" ]; then
-		export PATH=${PWD}/jre/Contents/Home/bin:${PATH}
-	else
-		export PATH=${PWD}/jre/bin:${PATH}
-	fi
-}
-
-#download_java
-
 log "Using Java"
 which java
 java -version

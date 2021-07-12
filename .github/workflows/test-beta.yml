@@ -4,7 +4,7 @@ on:
   check_suite:
     types: [rerequested]
   schedule:
-    - cron: 0 3 * * *
+    - cron: 0 6 * * *
 
 jobs:
     test:

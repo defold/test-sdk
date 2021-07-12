@@ -2,8 +2,7 @@ name: "extender:stage channel:stable"
 
 on:
   schedule:
-    - cron: 0 4 * * *
-
+    - cron: 0 11 * * *
 
 jobs:
     test:

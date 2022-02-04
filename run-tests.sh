@@ -18,7 +18,7 @@ log "**********************************"
 
 
 if [ -z "$PLATFORMS" ]; then
-	PLATFORMS="js-web,x86-win32,x86_64-win32,x86_64-linux,x86_64-darwin,armv7-darwin,armv7-android"
+	PLATFORMS="js-web,x86_64-win32,x86_64-linux,x86_64-darwin,arm64-darwin,armv7-android"
 fi
 log "Using platforms ${PLATFORMS}"
 

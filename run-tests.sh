@@ -114,7 +114,7 @@ build_project() {
 		log "Building $url for ${i}"
 
 		set +e
-		bob --platform ${i} build --build-server $BUILD_SERVER --defoldsdk ${SHA1} --variant=$variant
+		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant
 		check_error $? $url $i
 		set -e
 	done

@@ -18,7 +18,7 @@ log "**********************************"
 
 
 if [ -z "$PLATFORMS" ]; then
-	PLATFORMS="js-web,x86_64-win32,x86_64-linux,x86_64-darwin,arm64-darwin,armv7-android"
+	PLATFORMS="armv7-android,arm64-ios,js-web,x86_64-win32,x86_64-linux,x86_64-macos"
 fi
 log "Using platforms ${PLATFORMS}"
 
@@ -31,6 +31,10 @@ PROJECTS=$(echo $PROJECTS | tr '\n' ',' | tr ' ' ',')
 
 if [ -z "$CHANNEL" ]; then
 	CHANNEL=alpha
+fi
+
+if [ -z "$ARCHIVE_PATH" ]; then
+	ARCHIVE_PATH=d.defold.com
 fi
 
 case ${CHANNEL} in

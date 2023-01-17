@@ -12,6 +12,7 @@ options:
 	-h | --help                       Show this help
 	--sha1                 	          (string) SHA1 of engine to use
 	--channel                         (alpha|beta|stable) Get SHA1 of engine from latest
+	--archive-path                    (string) Bucket to download from. Default is d.defold.com
 	-p | --platform                   (string) Platform to build for
 	-v | --verbose                    Show verbose output from bob.jar
 	--log                             Show verbose output this script
@@ -43,6 +44,9 @@ while [ "$1" != "" ]; do
 		--channel)
 			CHANNEL="${VALUE}"
 			;;
+		--archive-path)
+			ARCHIVE_PATH="${VALUE}"
+			;;
 		-p | --platform)
 			PLATFORM="${VALUE}"
 			;;
@@ -63,10 +67,10 @@ download_bob() {
 	log "Downloading BOB"
 
 	if [ ! -z ${CHANNEL} ]; then
-		SHA1=$(curl -H 'Cache-Control: no-cache' -s http://d.defold.com/${CHANNEL}/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
+		SHA1=$(curl -H 'Cache-Control: no-cache' -s http://${ARCHIVE_PATH}/${CHANNEL}/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
 		log "Using SHA1 of latest release on channel ${CHANNEL} (SHA1: '${SHA1}')"
 	elif [ -z ${SHA1} ]; then
-		SHA1=$(curl -H 'Cache-Control: no-cache' -s http://d.defold.com/stable/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
+		SHA1=$(curl -H 'Cache-Control: no-cache' -s http://${ARCHIVE_PATH}/stable/info.json | sed 's/.*sha1": "\(.*\)".*/\1/')
 		log "Using SHA1 of latest stable release (SHA1: '${SHA1}')"
 	else
 		log "Using predefined SHA1 (SHA1: '${SHA1}')"
@@ -74,7 +78,7 @@ download_bob() {
 
 	local pwd=`pwd`
 	BOB_JAR=$pwd/bob_${SHA1}.jar
-	BOB_URL="http://d.defold.com/archive/${SHA1}/bob/bob.jar"
+	BOB_URL="http://${ARCHIVE_PATH}/archive/${SHA1}/bob/bob.jar"
 	if [ ! -f ${BOB_JAR} ]; then
 		log "Downloading ${BOB_URL}"
 		curl -L -o ${BOB_JAR} ${BOB_URL}

@@ -49,6 +49,10 @@ case ${CHANNEL} in
 	;;
 esac
 
+if [ -z "$HANDLE_ERRORS" ]; then
+	HANDLE_ERRORS="true"
+fi
+
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 BUILD_FOLDER=build
@@ -106,7 +110,6 @@ build_project() {
 	local platforms=(${1//,/ })
 	local url=$2
 	local variant=$3
-	download_project $url
 
 	local projectfile=`find $BUILD_FOLDER/$name -name game.project`
 	local projectdir="$(dirname $projectfile)"
@@ -117,14 +120,19 @@ build_project() {
 	for i in ${platforms[@]}; do
 		log "Building $url for ${i}"
 
-		set +e
-		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant
+		if [ "$HANDLE_ERRORS" == "true" ]; then
+			echo "DISABLING ERRORS"
+			set +e
+		fi
+		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant -v
 		check_error $? $url $i
-		set -e
+
+		if [ "$HANDLE_ERRORS" == "true" ]; then
+			set -e
+		fi
 	done
 
 	popd
-	rm -rf $projectdir
 }
 
 log "Using Java"
@@ -135,9 +143,11 @@ download_bob
 
 PROJECTS=(${PROJECTS//,/ })
 for project in ${PROJECTS[@]}; do
+	download_project $project
 	build_project $PLATFORMS $project debug
 	build_project $PLATFORMS $project release
 	build_project $PLATFORMS $project headless
+	rm -rf $BUILD_FOLDER
 done
 
 cd ${SCRIPTDIR}

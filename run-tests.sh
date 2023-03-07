@@ -124,7 +124,7 @@ build_project() {
 			echo "DISABLING ERRORS"
 			set +e
 		fi
-		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant -v
+		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant
 		check_error $? $url $i
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then

@@ -54,6 +54,9 @@ jobs:
               with:
                 java-version: '11.0.2'
                 architecture: x64
+            - name: Install dependencies
+              run: sudo apt-get install -y libopenal-dev libgl1-mesa-dev libglw1-mesa-dev freeglut3-dev
+
             - name: Run tests (stable)
               run: ./run-tests.sh
               env:

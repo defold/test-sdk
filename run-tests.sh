@@ -102,7 +102,7 @@ check_failed_builds() {
 	if [ -f ./${ERRORTXT} ]; then
 		echo "At least one of the builds failed:"
 		cat ./${ERRORTXT}
-	    exit 1
+		exit 1
 	fi
 }
 

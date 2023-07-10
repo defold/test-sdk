@@ -147,7 +147,6 @@ for project in ${PROJECTS[@]}; do
 	build_project $PLATFORMS $project debug
 	build_project $PLATFORMS $project release
 	build_project $PLATFORMS $project headless
-	rm -rf $BUILD_FOLDER
 done
 
 cd ${SCRIPTDIR}

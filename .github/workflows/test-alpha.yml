@@ -18,7 +18,7 @@ jobs:
                   "https://github.com/defold/extension-rive/archive/master.zip",
                   "https://github.com/defold/extension-adinfo/archive/master.zip",
                   "https://github.com/defold/extension-admob/archive/master.zip",
-                  # "https://github.com/defold/extension-camera/archive/master.zip",
+                  "https://github.com/defold/extension-camera/archive/master.zip",
                   "https://github.com/defold/extension-facebook/archive/master.zip",
                   "https://github.com/defold/extension-fbinstant/archive/master.zip",
                   "https://github.com/defold/extension-firebase/archive/master.zip",

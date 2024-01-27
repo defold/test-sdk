@@ -7,77 +7,9 @@ on:
     - cron: 0 6 * * *
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        strategy:
-            max-parallel: 2
-            matrix:
-              projects: [
-                  "https://github.com/defold/extension-spine/archive/master.zip",
-                  #"https://github.com/defold/extension-rive/archive/master.zip",
-                  "https://github.com/defold/extension-adinfo/archive/master.zip",
-                  "https://github.com/defold/extension-admob/archive/master.zip",
-                  "https://github.com/defold/extension-camera/archive/master.zip",
-                  "https://github.com/defold/extension-facebook/archive/master.zip",
-                  "https://github.com/defold/extension-fbinstant/archive/master.zip",
-                  "https://github.com/defold/extension-firebase/archive/master.zip",
-                  "https://github.com/defold/extension-firebase-analytics/archive/master.zip",
-                  "https://github.com/defold/extension-firebase-remoteconfig/archive/master.zip",
-                  "https://github.com/defold/extension-googleplayinstant/archive/master.zip",
-                  "https://github.com/defold/extension-gpgs/archive/master.zip",
-                  "https://github.com/defold/extension-html5/archive/master.zip",
-                  "https://github.com/defold/extension-iac/archive/master.zip",
-                  "https://github.com/defold/extension-iap/archive/master.zip",
-                  "https://github.com/defold/extension-kaiads/archive/main.zip",
-                  "https://github.com/defold/extension-kaios/archive/main.zip",
-                  "https://github.com/defold/extension-crypt/archive/master.zip",
-                  "https://github.com/defold/extension-poco/archive/master.zip",
-                  "https://github.com/defold/extension-push/archive/master.zip",
-                  "https://github.com/defold/extension-review/archive/master.zip",
-                  "https://github.com/defold/extension-safearea/archive/master.zip",
-                  "https://github.com/defold/extension-siwa/archive/master.zip",
-                  "https://github.com/defold/extension-videoplayer-native/archive/master.zip",
-                  "https://github.com/defold/extension-webmonetization/archive/master.zip",
-                  "https://github.com/defold/extension-websocket/archive/master.zip",
-                  "https://github.com/defold/extension-webview/archive/master.zip",
-                  "https://github.com/defold/template-native-extension/archive/master.zip",
-                  "https://github.com/britzl/defold-screenshot/archive/master.zip",
-                  "https://github.com/britzl/defold-luasec/archive/master.zip",
-                  "https://github.com/britzl/defold-sharing/archive/master.zip",
-                  "https://github.com/AGulev/DefVideoAds/archive/master.zip",
-                  "https://github.com/subsoap/defos/archive/master.zip",
-                  "https://github.com/Lerg/extension-directories/archive/master.zip",
-                  "https://github.com/dapetcu21/defold-fmod/archive/master.zip",
-                  
-                  # Disabled until GA-SDK-DEFOLD supports both x86_64-osx and arm64-osx
-                  # https://github.com/GameAnalytics/GA-SDK-DEFOLD/issues/40
-                  # "https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip",
-                  
-                  # Bob.jar plugins:
-                  "https://github.com/defold/extension-lua-preprocessor/archive/refs/heads/main.zip",
-                  "https://github.com/defold/extension-prometheus/archive/refs/heads/master.zip",
-                  "https://github.com/defold/extension-resource-encryption/archive/refs/heads/master.zip"
-                ]
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-java@v3
-              with:
-                java-version: '17.0.5+8'
-                architecture: x64
-                distribution: 'temurin'
-
-            - name: Run tests (beta)
-              run: ./run-tests.sh
-              env:
-                CHANNEL: "beta"
-                BUILD_SERVER: "https://build-stage.defold.com"
-                PLATFORMS: "js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-ios,armv7-android"
-                PROJECTS: ${{ matrix.projects }}
-            - name: Notify if tests failed
-              uses: homoluctus/slatify@master
-              if: failure()
-              with:
-                type: ${{ job.status }}
-                job_name: 'SDK tests (beta)'
-                channel: '#defold-alarms-build'
-                url: ${{ secrets.SLACK_WEBHOOK }}
+  test:
+    uses: ./.github/workflows/test.yml
+    with:
+      channel: beta
+    secrets:
+      slack_webhook: ${{ secrets.SLACK_WEBHOOK }}

@@ -20,7 +20,9 @@ jobs:
       matrix:
         projects: [
           'https://github.com/defold/extension-spine/archive/master.zip',
+          'https://github.com/defold/extension-texturepacker/archive/refs/heads/main.zip',
           #'https://github.com/defold/extension-rive/archive/master.zip',
+          
           'https://github.com/defold/extension-adinfo/archive/master.zip',
           'https://github.com/defold/extension-admob/archive/master.zip',
           'https://github.com/defold/extension-camera/archive/master.zip',

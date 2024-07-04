@@ -73,9 +73,7 @@ jobs:
           { name: 'Zendesk', url: 'https://github.com/defold/extension-zendesk/archive/refs/heads/master.zip' },
           { name: 'Steam', url: 'https://github.com/defold/extension-steam/archive/refs/heads/master.zip' },
           { name: 'Simpledata', url: 'https://github.com/defold/extension-simpledata/archive/refs/heads/main.zip' },
-          { name: 'Protobuf', url: 'https://github.com/defold/extension-proto/archive/refs/heads/master.zip' },
           { name: 'Permissions', url: 'https://github.com/defold/extension-permissions/archive/refs/heads/master.zip' },
-          { name: 'lmprof', url: 'https://github.com/defold/extension-lmprof/archive/refs/heads/master.zip' },
                     
           # Disabled until GA-SDK-DEFOLD supports both x86_64-osx and arm64-osx
           # https://github.com/GameAnalytics/GA-SDK-DEFOLD/issues/40
@@ -85,7 +83,6 @@ jobs:
           { name: 'Lua preprocessor', url: 'https://github.com/defold/extension-lua-preprocessor/archive/refs/heads/main.zip' },
           { name: 'Prometheus', url: 'https://github.com/defold/extension-prometheus/archive/refs/heads/master.zip' },
           { name: 'Resource encryption', url: 'https://github.com/defold/extension-resource-encryption/archive/refs/heads/master.zip' },
-          { name: 'Teal', url: 'https://github.com/defold/extension-teal/archive/refs/heads/main.zip' }
         ]
     name: ${{ matrix.projects.name }}
     steps:

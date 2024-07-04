@@ -1,0 +1,17 @@
+name: "extender:test channel:stable"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "test-server"
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    with:
+      channel: stable
+      build_server: 'https://build-gcp.defold.com'
+      parallel_task_count: 4
+    secrets:
+      slack_webhook: ${{ secrets.SLACK_WEBHOOK }}

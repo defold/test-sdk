@@ -7,6 +7,16 @@ on:
         required: true
         type: string
         description: 'Which Defold version use to build. Possible values: alpha, beta, stable'
+      build_server:
+        required: false
+        type: string
+        description: 'Buld server url'
+        default: 'https://build-stage.defold.com'
+      parallel_task_count:
+        required: false
+        type: number
+        description: 'How many jobs can run in parallel'
+        default: 2
     secrets:
       slack_webhook:
         required: true
@@ -16,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 2
+      max-parallel: ${{ inputs.parallel_task_count }}
       matrix:
         projects: [
           'https://github.com/defold/extension-spine/archive/master.zip',
@@ -79,7 +89,7 @@ jobs:
         run: ./run-tests.sh
         env:
           CHANNEL: ${{ inputs.channel }}
-          BUILD_SERVER: 'https://build-stage.defold.com'
+          BUILD_SERVER: ${{ inputs.build_server }}
           PLATFORMS: 'js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
           PROJECTS: ${{ matrix.projects }}
           EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}

@@ -12,8 +12,8 @@ fi
 
 log "**********************************"
 log "Using extender server ${BUILD_SERVER}"
-SERVER_VERSION=$(wget -q -O - $BUILD_SERVER)
-log "${SERVER_VERSION}"
+# SERVER_VERSION=$(wget -q -O - $BUILD_SERVER)
+# log "${SERVER_VERSION}"
 log "**********************************"
 
 

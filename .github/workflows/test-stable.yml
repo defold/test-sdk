@@ -11,3 +11,5 @@ jobs:
       channel: stable
     secrets:
       slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+      extender_header_name: ${{ secrets.EXTENDER_HEADER_NAME }}
+      extender_header_value: ${{ secrets.EXTENDER_HEADER_VALUE }}

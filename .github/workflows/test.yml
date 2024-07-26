@@ -20,6 +20,10 @@ on:
     secrets:
       slack_webhook:
         required: true
+      extender_header_name:
+        required: true
+      extender_header_value:
+        required: true
 
 jobs:
   test:
@@ -100,8 +104,8 @@ jobs:
           BUILD_SERVER: ${{ inputs.build_server }}
           PLATFORMS: 'js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
           PROJECTS: ${{ matrix.projects.url }}
-          EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
-          EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
+          EXTENDER_HEADER_NAME: ${{ secrets.extender_header_name }}
+          EXTENDER_HEADER_VALUE: ${{ secrets.extender_header_value }}
       - name: Notify if tests failed
         if: failure()  
         uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65

@@ -7,8 +7,22 @@ on:
         required: true
         type: string
         description: 'Which Defold version use to build. Possible values: alpha, beta, stable'
+      build_server:
+        required: false
+        type: string
+        description: 'Buld server url'
+        default: 'https://build-stage.defold.com'
+      parallel_task_count:
+        required: false
+        type: number
+        description: 'How many jobs can run in parallel'
+        default: 2
     secrets:
       slack_webhook:
+        required: true
+      extender_header_name:
+        required: true
+      extender_header_value:
         required: true
 
 jobs:
@@ -16,57 +30,65 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 2
+      max-parallel: ${{ inputs.parallel_task_count }}
       matrix:
         projects: [
-          'https://github.com/defold/extension-spine/archive/master.zip',
-          #'https://github.com/defold/extension-texturepacker/archive/refs/heads/main.zip',
-          #'https://github.com/defold/extension-rive/archive/master.zip',
+          { name: 'Spine', url: 'https://github.com/defold/extension-spine/archive/master.zip' },
+          #{ name: 'Texturepacker', url: 'https://github.com/defold/extension-texturepacker/archive/refs/heads/main.zip' },
+          #{ name: 'Rive', url: 'https://github.com/defold/extension-rive/archive/master.zip' },
           
-          'https://github.com/defold/extension-adinfo/archive/master.zip',
-          'https://github.com/defold/extension-admob/archive/master.zip',
-          'https://github.com/defold/extension-camera/archive/master.zip',
-          'https://github.com/defold/extension-facebook/archive/master.zip',
-          'https://github.com/defold/extension-fbinstant/archive/master.zip',
-          'https://github.com/defold/extension-firebase/archive/master.zip',
-          'https://github.com/defold/extension-firebase-analytics/archive/master.zip',
-          'https://github.com/defold/extension-firebase-remoteconfig/archive/master.zip',
-          'https://github.com/defold/extension-googleplayinstant/archive/master.zip',
-          'https://github.com/defold/extension-gpgs/archive/master.zip',
-          'https://github.com/defold/extension-html5/archive/master.zip',
-          'https://github.com/defold/extension-iac/archive/master.zip',
-          'https://github.com/defold/extension-iap/archive/master.zip',
-          'https://github.com/defold/extension-kaiads/archive/main.zip',
-          'https://github.com/defold/extension-kaios/archive/main.zip',
-          'https://github.com/defold/extension-crypt/archive/master.zip',
-          'https://github.com/defold/extension-poco/archive/master.zip',
-          'https://github.com/defold/extension-push/archive/master.zip',
-          'https://github.com/defold/extension-review/archive/master.zip',
-          'https://github.com/defold/extension-safearea/archive/master.zip',
-          'https://github.com/defold/extension-siwa/archive/master.zip',
-          'https://github.com/defold/extension-videoplayer-native/archive/master.zip',
-          'https://github.com/defold/extension-webmonetization/archive/master.zip',
-          'https://github.com/defold/extension-websocket/archive/master.zip',
-          'https://github.com/defold/extension-webview/archive/master.zip',
-          'https://github.com/defold/template-native-extension/archive/master.zip',
-          'https://github.com/britzl/defold-screenshot/archive/master.zip',
-          'https://github.com/britzl/defold-luasec/archive/master.zip',
-          'https://github.com/britzl/defold-sharing/archive/master.zip',
-          'https://github.com/britzl/extension-imgui/archive/master.zip',
-          'https://github.com/AGulev/DefVideoAds/archive/master.zip',
-          'https://github.com/subsoap/defos/archive/master.zip',
-          'https://github.com/Lerg/extension-directories/archive/master.zip',
-          'https://github.com/dapetcu21/defold-fmod/archive/master.zip',
+          { name: 'AdInfo', url: 'https://github.com/defold/extension-adinfo/archive/master.zip' },
+          { name: 'AdMob', url: 'https://github.com/defold/extension-admob/archive/master.zip' },
+          { name: 'Camera', url: 'https://github.com/defold/extension-camera/archive/master.zip' },
+          { name: 'Facebook', url: 'https://github.com/defold/extension-facebook/archive/master.zip' },
+          { name: 'FBInstance', url: 'https://github.com/defold/extension-fbinstant/archive/master.zip' },
+          { name: 'Firebase', url: 'https://github.com/defold/extension-firebase/archive/master.zip' },
+          { name: 'Firebase analytics', url: 'https://github.com/defold/extension-firebase-analytics/archive/master.zip' },
+          { name: 'Firebase remote config', url: 'https://github.com/defold/extension-firebase-remoteconfig/archive/master.zip' },
+          { name: 'GP Instant', url: 'https://github.com/defold/extension-googleplayinstant/archive/master.zip' },
+          { name: 'GPGS', url: 'https://github.com/defold/extension-gpgs/archive/master.zip' },
+          { name: 'HTML5', url: 'https://github.com/defold/extension-html5/archive/master.zip' },
+          { name: 'IAC', url: 'https://github.com/defold/extension-iac/archive/master.zip' },
+          { name: 'IAP', url: 'https://github.com/defold/extension-iap/archive/master.zip' },
+          { name: 'KaiAds', url: 'https://github.com/defold/extension-kaiads/archive/main.zip' },
+          { name: 'KaiOS', url: 'https://github.com/defold/extension-kaios/archive/main.zip' },
+          { name: 'Crypt', url: 'https://github.com/defold/extension-crypt/archive/master.zip' },
+          { name: 'Poco', url: 'https://github.com/defold/extension-poco/archive/master.zip' },
+          { name: 'Push', url: 'https://github.com/defold/extension-push/archive/master.zip' },
+          { name: 'Review', url: 'https://github.com/defold/extension-review/archive/master.zip' },
+          { name: 'SafeArea', url: 'https://github.com/defold/extension-safearea/archive/master.zip' },
+          { name: 'Siwa', url: 'https://github.com/defold/extension-siwa/archive/master.zip' },
+          { name: 'Videoplayer', url: 'https://github.com/defold/extension-videoplayer-native/archive/master.zip' },
+          { name: 'Webmonetization', url: 'https://github.com/defold/extension-webmonetization/archive/master.zip' },
+          { name: 'Websocket', url: 'https://github.com/defold/extension-websocket/archive/master.zip' },
+          { name: 'Webview', url: 'https://github.com/defold/extension-webview/archive/master.zip' },
+          { name: 'Template NE', url: 'https://github.com/defold/template-native-extension/archive/master.zip' },
+          { name: 'Screenshot', url: 'https://github.com/britzl/defold-screenshot/archive/master.zip' },
+          { name: 'LuaSec', url: 'https://github.com/britzl/defold-luasec/archive/master.zip' },
+          { name: 'Sharing', url: 'https://github.com/britzl/defold-sharing/archive/master.zip' },
+          { name: 'Imgui', url: 'https://github.com/britzl/extension-imgui/archive/master.zip' },
+          { name: 'VideoAds', url: 'https://github.com/AGulev/DefVideoAds/archive/master.zip' },
+          { name: 'Defos', url: 'https://github.com/subsoap/defos/archive/master.zip' },
+          { name: 'Directories', url: 'https://github.com/Lerg/extension-directories/archive/master.zip' },
+          { name: 'FMOD', url: 'https://github.com/dapetcu21/defold-fmod/archive/master.zip' },
+
+          { name: 'Poki SDK', url: 'https://github.com/defold/extension-poki-sdk/archive/refs/heads/main.zip' },
+          { name: 'Ironsource', url: 'https://github.com/defold/extension-ironsource/archive/refs/heads/main.zip' },
+          { name: 'Zendesk', url: 'https://github.com/defold/extension-zendesk/archive/refs/heads/master.zip' },
+          { name: 'Steam', url: 'https://github.com/defold/extension-steam/archive/refs/heads/master.zip' },
+          { name: 'Simpledata', url: 'https://github.com/defold/extension-simpledata/archive/refs/heads/main.zip' },
+          { name: 'Permissions', url: 'https://github.com/defold/extension-permissions/archive/refs/heads/master.zip' },
                     
           # Disabled until GA-SDK-DEFOLD supports both x86_64-osx and arm64-osx
           # https://github.com/GameAnalytics/GA-SDK-DEFOLD/issues/40
           #'https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip',
                     
           # Bob.jar plugins:
-          'https://github.com/defold/extension-lua-preprocessor/archive/refs/heads/main.zip',
-          'https://github.com/defold/extension-prometheus/archive/refs/heads/master.zip',
-          'https://github.com/defold/extension-resource-encryption/archive/refs/heads/master.zip'
+          { name: 'Lua preprocessor', url: 'https://github.com/defold/extension-lua-preprocessor/archive/refs/heads/main.zip' },
+          { name: 'Prometheus', url: 'https://github.com/defold/extension-prometheus/archive/refs/heads/master.zip' },
+          { name: 'Resource encryption', url: 'https://github.com/defold/extension-resource-encryption/archive/refs/heads/master.zip' },
         ]
+    name: ${{ matrix.projects.name }}
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
@@ -79,11 +101,11 @@ jobs:
         run: ./run-tests.sh
         env:
           CHANNEL: ${{ inputs.channel }}
-          BUILD_SERVER: 'https://build-stage.defold.com'
+          BUILD_SERVER: ${{ inputs.build_server }}
           PLATFORMS: 'js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
-          PROJECTS: ${{ matrix.projects }}
-          EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
-          EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
+          PROJECTS: ${{ matrix.projects.url }}
+          EXTENDER_HEADER_NAME: ${{ secrets.extender_header_name }}
+          EXTENDER_HEADER_VALUE: ${{ secrets.extender_header_value }}
       - name: Notify if tests failed
         if: failure()  
         uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65

@@ -108,8 +108,32 @@ check_failed_builds() {
 	fi
 }
 
+# Function to shuffle an array passed as a parameter
+shuffle() {
+    local i tmp size max rand shuffled_string
+    IFS=',' read -ra arr <<< "$1"
+    # Get the size of the array
+    size=${#arr[*]}
+    # Maximum random number
+    max=$(( 32768 / size * size ))
+
+    for ((i=size-1; i>0; i--)); do
+        # Get a random number within the range
+        while (( (rand = RANDOM) >= max )); do :; done
+        # Perform a modulo operation to get a number within the array size
+        rand=$(( rand % (i+1) ))
+        # Swap the elements
+        tmp=${arr[i]}
+        arr[i]=${arr[rand]}
+        arr[rand]=$tmp
+    done
+    shuffled_string=$(IFS=,; echo "${arr[*]}")
+    echo "$shuffled_string"
+}
+
 build_project() {
-	local platforms=(${1//,/ })
+	local shuffled_platform=$(shuffle $1)
+	local platforms=(${shuffled_platform//,/ })
 	local url=$2
 	local variant=$3
 

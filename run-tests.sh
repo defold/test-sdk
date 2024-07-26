@@ -12,7 +12,11 @@ fi
 
 log "**********************************"
 log "Using extender server ${BUILD_SERVER}"
-SERVER_VERSION=$(wget -q -O - $BUILD_SERVER)
+if [ ! -z "$EXTENDER_HEADER_NAME" ]; then
+	SERVER_VERSION=$(wget --header "${EXTENDER_HEADER_NAME}: ${EXTENDER_HEADER_VALUE}" -q -O - $BUILD_SERVER)
+else
+	SERVER_VERSION=$(wget -q -O - $BUILD_SERVER)
+fi
 log "${SERVER_VERSION}"
 log "**********************************"
 

@@ -82,6 +82,8 @@ jobs:
           BUILD_SERVER: 'https://build-stage.defold.com'
           PLATFORMS: 'js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
           PROJECTS: ${{ matrix.projects }}
+          EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
+          EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
       - name: Notify if tests failed
         if: failure()  
         uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65

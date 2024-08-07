@@ -1,0 +1,17 @@
+name: "extender:prod channel:beta"
+
+on:
+  push:
+    branches:
+      - test-prod
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    with:
+      channel: beta
+      build_server: https://build.defold.com
+    secrets:
+      slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
+      extender_header_name: ${{ secrets.EXTENDER_HEADER_NAME }}
+      extender_header_value: ${{ secrets.EXTENDER_HEADER_VALUE }}

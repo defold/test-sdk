@@ -1,0 +1,86 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 960
+height = 640
+
+[android]
+input_method = HiddenInputField
+
+[project]
+title = test-sdk1
+dependencies#0 = https://github.com/defold/extension-poki-sdk/archive/refs/heads/main.zip
+dependencies#1 = https://github.com/defold/extension-ironsource/archive/refs/heads/main.zip
+dependencies#2 = https://github.com/defold/extension-firebase/archive/refs/heads/master.zip
+dependencies#3 = https://github.com/defold/extension-firebase-analytics/archive/refs/heads/master.zip
+dependencies#4 = https://github.com/defold/extension-steam/archive/refs/heads/master.zip
+dependencies#5 = https://github.com/defold/extension-spine/archive/refs/heads/main.zip
+dependencies#6 = https://github.com/defold/extension-facebook/archive/refs/heads/master.zip
+dependencies#7 = https://github.com/defold/extension-websocket/archive/refs/heads/master.zip
+dependencies#8 = https://github.com/defold/extension-zendesk/archive/refs/heads/master.zip
+dependencies#9 = https://github.com/defold/extension-gpgs/archive/refs/heads/master.zip
+dependencies#10 = https://github.com/defold/extension-crypt/archive/refs/heads/master.zip
+dependencies#11 = https://github.com/defold/extension-permissions/archive/refs/heads/master.zip
+dependencies#12 = https://github.com/defold/extension-iap/archive/refs/heads/master.zip
+dependencies#13 = https://github.com/defold/extension-safearea/archive/refs/heads/master.zip
+dependencies#14 = https://github.com/defold/extension-push/archive/refs/heads/master.zip
+
+[iron_source]
+adcolony_android = 1
+admob_android = 1
+admob_android_appid = ca-app-pub-3940256099942544~3347511713
+applovin_android = 1
+bidmachine_android = 0
+charboost_android = 1
+dt_exchange_android = 1
+facebook_android = 1
+hyprmx_android = 1
+inmobi_android = 0
+liftoff_android = 0
+mintegral_android = 0
+moloco_android = 0
+mytarget_android = 0
+pangle_android = 1
+unityads_android = 1
+yandex_ads_android = 0
+ios_use_skan = 1
+ios_tracking_usage_description = Your data will be used to provide you a better and personalized ad experience.
+ios_enable_ats = 1
+adcolony_ios = 1
+admob_ios = 1
+admob_ios_appid = ca-app-pub-3940256099942544~1458002511
+applovin_ios = 1
+bidmachine_ios = 0
+charboost_ios = 1
+dt_exchange_ios = 0
+facebook_ios = 1
+hyprmx_ios = 0
+inmobi_ios = 0
+liftoff_ios = 0
+maio_ios = 0
+mintegral_ios = 0
+moloco_ios = 0
+mytarget_ios = 0
+pangle_ios = 1
+unityads_ios = 1
+
+[facebook]
+clienttoken=xxxxxxxx
+appid=xxxxxxxxxxx
+
+[gpgs]
+app_id=000000000
+
+[android]
+iap_provider = GooglePlay
+package = com.defold.testBunchExtensions
+minimum_sdk_version = 21
+target_sdk_version = 34
+manifest = /platform/android/AndroidManifest.xml
+
+[ios]
+bundle_identifier = com.defold.testBunchExtensions

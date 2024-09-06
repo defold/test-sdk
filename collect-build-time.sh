@@ -9,6 +9,16 @@ if [ -z "$BUILD_SERVER" ]; then
 	BUILD_SERVER=https://build-stage.defold.com
 fi
 
+log "**********************************"
+log "Using extender server ${BUILD_SERVER}"
+if [ ! -z "$EXTENDER_HEADER_NAME" ]; then
+	SERVER_VERSION=$(wget --header "${EXTENDER_HEADER_NAME}: ${EXTENDER_HEADER_VALUE}" -q -O - $BUILD_SERVER)
+else
+	SERVER_VERSION=$(wget -q -O - $BUILD_SERVER)
+fi
+log "${SERVER_VERSION}"
+log "**********************************"
+
 if [ -z "$PLATFORMS" ]; then
 	PLATFORMS="armv7-android,arm64-ios,js-web,x86_64-win32,x86_64-linux,x86_64-macos"
 fi
@@ -43,6 +53,8 @@ fi
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+SERVER_SHA=""
+SERVER_VERSION=""
 ENGINE_VERSION=""
 DEFOLDSDK_SHA=""
 
@@ -54,6 +66,7 @@ fi
 ERRORTXT=${SCRIPTDIR}/errors.txt
 REPORTS_FOLDER=${SCRIPTDIR}/build_reports
 RESULT_FOLDER=${SCRIPTDIR}/time_results
+RESULT_FILE=${RESULT_FOLDER}/latest.csv
 
 rm -rf $REPORTS_FOLDER
 mkdir -p $REPORTS_FOLDER
@@ -113,7 +126,8 @@ build_project() {
 				-
 				( .marks[] | select(.shortName == "StartBuildRemoteEngine") | .timestamp )
 				' ${REPORTS_FOLDER}/${i}_time.json)
-			echo "${BUILD_DATE},${BUILD_SERVER},${DEFOLDSDK_SHA},${ENGINE_VERSION},${CHANNEL},${i},${time}" >> $RESULT_FOLDER/latest.csv
+			# date,server,server_sha,server_version,defoldsdk_version,engine_version,engine_channel,platform,build_time
+			echo "${BUILD_DATE},${BUILD_SERVER},${SERVER_SHA},${SERVER_VERSION},${DEFOLDSDK_SHA},${ENGINE_VERSION},${CHANNEL},${i},${time}" >> $RESULT_FILE
 		fi
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then
@@ -130,13 +144,18 @@ download_bob
 
 echo "Cleanup previuos results"
 mkdir -p $RESULT_FOLDER
-touch $RESULT_FOLDER/latest.csv
-echo "date,server,defoldsdk_version,engine_version,engine_channel,platform,build_time" > $RESULT_FOLDER/latest.csv
+touch $RESULT_FILE
 
 # bob.jar version: 1.9.1  sha1: 691478c02875b80e76da65d2f5756394e7a906b1  built: 2024-07-26 13:13:3
 ENGINE_VERSION=$(java -jar ${BOB_JAR} --version | awk '{print $3}' | tr '' '\n')
 DEFOLDSDK_SHA=$(java -jar ${BOB_JAR} --version | awk '{print $5}' | tr '' '\n')
 
+# Extender<br>959e837<br>2024-08-16 15:22:46
+SERVER_SHA=$(echo $SERVER_VERSION | awk -F '<br>' '{print $2}')
+
 build_project $PLATFORMS
+
+echo "Upload results to Bigquery..."
+bq load defold_engine_data.extender_build_time $RESULT_FILE
 
 check_failed_builds

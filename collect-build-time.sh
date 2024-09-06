@@ -54,7 +54,7 @@ fi
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 SERVER_SHA=""
-SERVER_VERSION=""
+SERVER_VERSION_STR=""
 ENGINE_VERSION=""
 DEFOLDSDK_SHA=""
 
@@ -127,7 +127,7 @@ build_project() {
 				( .marks[] | select(.shortName == "StartBuildRemoteEngine") | .timestamp )
 				' ${REPORTS_FOLDER}/${i}_time.json)
 			# date,server,server_sha,server_version,defoldsdk_version,engine_version,engine_channel,platform,build_time
-			echo "${BUILD_DATE},${BUILD_SERVER},${SERVER_SHA},${SERVER_VERSION},${DEFOLDSDK_SHA},${ENGINE_VERSION},${CHANNEL},${i},${time}" >> $RESULT_FILE
+			echo "${BUILD_DATE},${BUILD_SERVER},${SERVER_SHA},${SERVER_VERSION_STR},${DEFOLDSDK_SHA},${ENGINE_VERSION},${CHANNEL},${i},${time}" >> $RESULT_FILE
 		fi
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then
@@ -152,7 +152,6 @@ DEFOLDSDK_SHA=$(java -jar ${BOB_JAR} --version | awk '{print $5}' | tr '' '\n')
 
 # Extender<br>959e837<br>2024-08-16 15:22:46
 SERVER_SHA=$(echo $SERVER_VERSION | awk -F '<br>' '{print $2}')
-
 build_project $PLATFORMS
 
 echo "Upload results to Bigquery..."

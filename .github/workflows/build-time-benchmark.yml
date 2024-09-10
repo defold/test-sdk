@@ -23,7 +23,9 @@ jobs:
           export_environment_variables: true
           create_credentials_file: true
       - name: Run benchmark (stage)
-        run: ./collect-build-time.sh
+        run: |
+          cd ${{ github.workspace }}/benchmark-project
+          ./collect-build-time.sh
         env:
           CHANNEL: stable
           BUILD_SERVER: https://build-stage.defold.com
@@ -31,7 +33,9 @@ jobs:
           EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
           EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
       - name: Run benchmark (production)
-        run: ./collect-build-time.sh
+        run: |
+          cd ${{ github.workspace }}/benchmark-project
+          ./collect-build-time.sh
         env:
             CHANNEL: stable
             BUILD_SERVER: https://build.defold.com

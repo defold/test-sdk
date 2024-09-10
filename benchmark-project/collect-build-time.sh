@@ -2,7 +2,7 @@
 
 set -e
 
-source ./build.sh
+source ./../build.sh
 
 # Can be set as environment variable
 if [ -z "$BUILD_SERVER" ]; then

@@ -1,0 +1,52 @@
+name: Build time benchmark
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 45 0 * * WED
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018
+        with:
+          java-version: '17.0.5+8'
+          architecture: x64
+          distribution: 'temurin'
+      - name: Login to GCP
+        uses: google-github-actions/auth@71fee32a0bb7e97b4d33d548e7d957010649d8fa
+        with:
+          service_account: ${{ secrets.BQ_UPLOADER_SA }}
+          credentials_json: ${{ secrets.BQ_UPLOADER_SA_KEY }}
+          export_environment_variables: true
+          create_credentials_file: true
+      - name: Run benchmark (stage)
+        run: |
+          cd ${{ github.workspace }}/benchmark-project
+          ./collect-build-time.sh
+        env:
+          CHANNEL: stable
+          BUILD_SERVER: https://build-stage.defold.com
+          PLATFORMS: 'js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
+          EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
+          EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
+      - name: Run benchmark (production)
+        run: |
+          cd ${{ github.workspace }}/benchmark-project
+          ./collect-build-time.sh
+        env:
+            CHANNEL: stable
+            BUILD_SERVER: https://build.defold.com
+            PLATFORMS: 'js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
+            EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
+            EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}            
+      - name: Notify if tests failed
+        if: failure()
+        uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65
+        with:
+          type: ${{ job.status }}
+          job_name: 'Build time benchmark'
+          channel: '#defold-alarms-build'
+          url: ${{ secrets.SLACK_WEBHOOK }}

@@ -16,7 +16,7 @@ jobs:
           architecture: x64
           distribution: 'temurin'
       - name: Login to GCP
-        uses: google-github-actions/auth@62cf5bd3e4211a0a0b51f2c6d6a37129d828611d
+        uses: google-github-actions/auth@8254fb75a33b976a221574d287e93919e6a36f70
         with:
           service_account: ${{ secrets.BQ_UPLOADER_SA }}
           credentials_json: ${{ secrets.BQ_UPLOADER_SA_KEY }}

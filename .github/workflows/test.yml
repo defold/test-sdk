@@ -101,9 +101,9 @@ jobs:
         id: versions
         run: |
           if [ ! -z "$EXTENDER_HEADER_NAME" ]; then
-            EXTENDER_SHA=$(wget --header "${EXTENDER_HEADER_NAME}: ${EXTENDER_HEADER_VALUE}" -q -O - $BUILD_SERVER)
+            EXTENDER_SHA=$(wget --header "${EXTENDER_HEADER_NAME}: ${EXTENDER_HEADER_VALUE}" -q -O - $BUILD_SERVER | awk -F'<br>' '{print $2}')
           else
-            EXTENDER_SHA=$(wget -q -O - $BUILD_SERVER)
+            EXTENDER_SHA=$(wget -q -O - $BUILD_SERVER | awk -F'<br>' '{print $2}')
           fi
 
           if [ ! -z ${CHANNEL} ]; then

@@ -33,7 +33,7 @@ jobs:
       max-parallel: ${{ inputs.parallel_task_count }}
       matrix:
         projects: [
-          { name: 'Spine', url: 'https://github.com/defold/extension-spine', head: 'master' },
+          { name: 'Spine', url: 'https://github.com/defold/extension-spine', head: 'main' },
           #{ name: 'Texturepacker', url: 'https://github.com/defold/extension-texturepacker/archive/refs/heads/main.zip' },
           #{ name: 'Rive', url: 'https://github.com/defold/extension-rive/archive/master.zip' },
           

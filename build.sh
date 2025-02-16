@@ -97,10 +97,8 @@ clean() {
 }
 
 resolve() {
-	if [ -z "${1}" ]; then usage; exit 1; fi
-	if [ -z "${2}" ]; then usage; exit 1; fi
 	log "Resolving dependencies"
-	bob --email "${1}" --auth "${2}" resolve
+	bob resolve
 }
 
 build() {

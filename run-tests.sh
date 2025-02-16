@@ -141,7 +141,7 @@ build_project() {
 	local projectdir="$(dirname $projectfile)"
 	pushd $projectdir
 
-	resolve foo@bar.com 123456
+	resolve
 
 	for i in ${platforms[@]}; do
 		log "Building $url for ${i}"
@@ -151,7 +151,12 @@ build_project() {
 			set +e
 		fi
 		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant -v
-		check_error $? $url $i
+		bob_exit_code=$?
+		check_error $bob_exit_code $url $i
+		if [ $bob_exit_code == 0 && $GITHUB_ACTIONS == "true" ]; then
+			var_name=PLATFORM_RESULT_${i}
+			declare "$var_name=$(( ${!var_name:-0} + 1 ))"
+		fi
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then
 			set -e
@@ -177,3 +182,14 @@ for project in ${PROJECTS[@]}; do
 done
 
 check_failed_builds
+
+if [ $GITHUB_ACTIONS == "true" ]; then
+	success_platform=()
+	for platform in $PLATFORMS; do
+		var_name=var_name=PLATFORM_RESULT_${platform}
+		if [ ${!var_name} -eq 3 ]; then
+			success_platform+=(${platform})
+		fi
+	done
+	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platform
+fi

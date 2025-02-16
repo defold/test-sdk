@@ -1,6 +1,7 @@
 name: "extender:stage channel:beta"
 
 on:
+  workflow_dispatch:
   check_suite:
     types: [rerequested]
   schedule:

@@ -4,6 +4,8 @@ set -e
 
 source ./build.sh
 
+declare -A PLATFORM_RESULTS
+
 # Can be set as environment variable
 if [ -z "$BUILD_SERVER" ]; then
 	BUILD_SERVER=https://build-stage.defold.com
@@ -154,8 +156,7 @@ build_project() {
 		bob_exit_code=$?
 		check_error $bob_exit_code $url $i
 		if [[ $bob_exit_code -eq 0 && "${GITHUB_ACTIONS:-false}" == "true" ]]; then
-			var_name=PLATFORM_RESULT_${i}
-			declare "$var_name=$(( ${!var_name:-0} + 1 ))"
+			PLATFORM_RESULTS[$i]=$(( ${PLATFORM_RESULTS[$i]:-0} + 1 ))
 		fi
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then
@@ -186,8 +187,7 @@ check_failed_builds
 if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	success_platform=()
 	for platform in $PLATFORMS; do
-		var_name=var_name=PLATFORM_RESULT_${platform}
-		if [ ${!var_name} -eq 3 ]; then
+		if [ ${PLATFORM_RESULTS[$platform]} -eq 3 ]; then
 			success_platform+=(${platform})
 		fi
 	done

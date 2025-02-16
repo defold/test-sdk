@@ -153,7 +153,7 @@ build_project() {
 		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant -v
 		bob_exit_code=$?
 		check_error $bob_exit_code $url $i
-		if [ $bob_exit_code -eq 0 && "${GITHUB_ACTIONS:-false}" == "true" ]; then
+		if [[ $bob_exit_code -eq 0 && "${GITHUB_ACTIONS:-false}" == "true" ]]; then
 			var_name=PLATFORM_RESULT_${i}
 			declare "$var_name=$(( ${!var_name:-0} + 1 ))"
 		fi

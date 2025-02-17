@@ -202,7 +202,8 @@ if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
 			success_platform+=(${platform})
 		fi
-		idx=$((idx+1))
+		# idx=$((idx+1))
+		((idx++))
 	done
 	echo $(IFS=,; echo "${success_platform[*]}")
 	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platforms

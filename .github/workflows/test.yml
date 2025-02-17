@@ -135,7 +135,8 @@ jobs:
       - name: Define platforms to build
         id: define-platform
         run: |
-          PLATFORM_TO_BUILD="js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android"
+          # PLATFORM_TO_BUILD="js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android"
+          PLATFORM_TO_BUILD="x86_64-linux,x86_64-macos,arm64-macos"
           CACHE_FOUND=${{ steps.build-result.outputs.cache-hit }}
           if [[ $CACHE_FOUND == "true" ]]; then
             CACHE_FILE=${{ github.workspace }}/extender_success_platforms
@@ -189,12 +190,12 @@ jobs:
           echo "Result platforms: $(IFS=,; echo "${merged_result[*]}")"
           echo $(IFS=,; echo "${merged_result[*]}") >> ${{ github.workspace }}/extender_success_platforms
 
-      - name: Cache build success information
-        if: always()
-        uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57
-        with:
-          path: ${{ github.workspace }}/extender_success_platforms
-          key: ${{ matrix.projects.name }}-${{ steps.versions.outputs.extension_sha }}-${{ steps.versions.outputs.extender_sha }}-${{ steps.versions.outputs.engine_sha }}
+      # - name: Cache build success information
+      #   if: always()
+      #   uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57
+      #   with:
+      #     path: ${{ github.workspace }}/extender_success_platforms
+      #     key: ${{ matrix.projects.name }}-${{ steps.versions.outputs.extension_sha }}-${{ steps.versions.outputs.extender_sha }}-${{ steps.versions.outputs.engine_sha }}
       # - name: Notify if tests failed
       #   if: failure()  
       #   uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65

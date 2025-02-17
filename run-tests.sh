@@ -175,13 +175,16 @@ java -version
 download_bob
 
 shuffled_platform=$(shuffle $PLATFORMS)
+splitted_platforms=(${shuffled_platform//,/ })
 
 if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
-	arr_len=${#shuffled_platform[@]}
+	arr_len=${#splitted_platforms[@]}
 	for (( idx=0; idx<arr_len; idx++ )); do
 		PLATFORM_RESULTS+=(0)
 	done
 fi
+
+echo ${PLATFORM_RESULTS[@]}
 
 download_project $PROJECT
 build_project $shuffled_platform $PROJECT debug
@@ -192,8 +195,9 @@ rm -rf $BUILD_FOLDER
 if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	success_platform=()
 	idx=0
-	splitted_platforms=(${shuffled_platform//,/ })
+
 	for platform in ${splitted_platforms[@]}; do
+		echo $idx
 		echo "${platform}=${PLATFORM_RESULTS[$idx]}"
 		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
 			success_platform+=(${platform})

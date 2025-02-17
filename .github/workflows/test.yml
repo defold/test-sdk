@@ -169,20 +169,21 @@ jobs:
           CHANNEL: ${{ inputs.channel }}
           BUILD_SERVER: ${{ inputs.build_server }}
           PLATFORMS: ${{ steps.define-platform.outputs.platforms }}
-          PROJECTS: ${{ steps.project-url.outputs.project_url }}
+          PROJECT: ${{ steps.project-url.outputs.project_url }}
           EXTENDER_HEADER_NAME: ${{ secrets.extender_header_name }}
           EXTENDER_HEADER_VALUE: ${{ secrets.extender_header_value }}
           GITHUB_ACTIONS: true
       - name: Cache build success information
+        if: always()
         uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
           path: ${{ github.workspace }}/extender_success_platforms
           key: ${{ matrix.projects.name }}-${{ steps.versions.outputs.extension_sha }}-${{ steps.versions.outputs.extender_sha }}-${{ steps.versions.outputs.engine_sha }}
-      - name: Notify if tests failed
-        if: failure()  
-        uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65
-        with:
-          type: ${{ job.status }}
-          job_name: 'SDK tests ${{ inputs.channel }}'
-          channel: '#defold-alarms-build'
-          url: ${{ secrets.slack_webhook }}
+      # - name: Notify if tests failed
+      #   if: failure()  
+      #   uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65
+      #   with:
+      #     type: ${{ job.status }}
+      #     job_name: 'SDK tests ${{ inputs.channel }}'
+      #     channel: '#defold-alarms-build'
+      #     url: ${{ secrets.slack_webhook }}

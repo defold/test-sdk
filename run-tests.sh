@@ -172,7 +172,7 @@ log "Using Java"
 which java
 java -version
 
-# download_bob
+download_bob
 
 shuffled_platform=$(shuffle $PLATFORMS)
 splitted_platforms=(${shuffled_platform//,/ })
@@ -186,11 +186,11 @@ fi
 
 echo ${PLATFORM_RESULTS[@]}
 
-# download_project $PROJECT
-# build_project $shuffled_platform $PROJECT debug
-# build_project $shuffled_platform $PROJECT release
-# build_project $shuffled_platform $PROJECT headless
-# rm -rf $BUILD_FOLDER
+download_project $PROJECT
+build_project $shuffled_platform $PROJECT debug
+build_project $shuffled_platform $PROJECT release
+build_project $shuffled_platform $PROJECT headless
+rm -rf $BUILD_FOLDER
 
 if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	success_platform=()
@@ -202,8 +202,7 @@ if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
 			success_platform+=(${platform})
 		fi
-		# idx=$((idx+1))
-		((idx++))
+		idx=$((idx+1))
 	done
 	echo $(IFS=,; echo "${success_platform[*]}")
 	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platforms

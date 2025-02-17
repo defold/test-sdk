@@ -193,12 +193,12 @@ if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	success_platform=()
 	idx=0
 	splitted_platforms=(${shuffled_platform//,/ })
-	for platform in $splitted_platforms; do
+	for platform in ${splitted_platforms[@]}; do
 		echo "${platform}=${PLATFORM_RESULTS[$idx]}"
 		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
 			success_platform+=(${platform})
 		fi
-		idx+=1
+		((idx++))
 	done
 	echo $(IFS=,; echo "${success_platform[*]}")
 	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platforms

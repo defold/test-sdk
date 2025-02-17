@@ -4,7 +4,7 @@ set -e
 
 source ./build.sh
 
-declare -A PLATFORM_RESULTS
+declare PLATFORM_RESULTS=()
 
 # Can be set as environment variable
 if [ -z "$BUILD_SERVER" ]; then
@@ -28,12 +28,10 @@ if [ -z "$PLATFORMS" ]; then
 fi
 log "Using platforms ${PLATFORMS}"
 
-if [ -z "$PROJECTS" ]; then
-	log "No projects specified!"
+if [ -z "$PROJECT" ]; then
+	log "No project specified!"
 	exit 1
 fi
-# Replace new lines with comma
-PROJECTS=$(echo $PROJECTS | tr '\n' ',' | tr ' ' ',')
 
 if [ -z "$CHANNEL" ]; then
 	CHANNEL=alpha
@@ -96,9 +94,10 @@ check_error() {
 	local status=$1
 	local name=$2
 	local platform=$3
+	local variant=$4
 	if [ $status -ne 0 ]; then
 		touch ${ERRORTXT}
-		log "Failed to build '${name}'' for ${platform}" >> "${ERRORTXT}"
+		log "Failed to build '${name}' for '${platform}' variant '${variant}'" >> "${ERRORTXT}"
 	fi
 }
 
@@ -134,8 +133,8 @@ shuffle() {
 }
 
 build_project() {
-	local shuffled_platform=$(shuffle $1)
-	local platforms=(${shuffled_platform//,/ })
+	local platforms_str=$1
+	local platforms=(${platforms_str//,/ })
 	local url=$2
 	local variant=$3
 
@@ -145,6 +144,7 @@ build_project() {
 
 	resolve
 
+	local idx=0
 	for i in ${platforms[@]}; do
 		log "Building $url for ${i}"
 
@@ -152,12 +152,13 @@ build_project() {
 			echo "DISABLING ERRORS"
 			set +e
 		fi
-		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant -v
+		bob --platform ${i} build --build-server $BUILD_SERVER --use-async-build-server --defoldsdk ${SHA1} --variant=$variant
 		bob_exit_code=$?
-		check_error $bob_exit_code $url $i
+		check_error $bob_exit_code $url $i $variant
 		if [[ $bob_exit_code -eq 0 && "${GITHUB_ACTIONS:-false}" == "true" ]]; then
-			PLATFORM_RESULTS[$i]=$(( ${PLATFORM_RESULTS[$i]:-0} + 1 ))
+			PLATFORM_RESULTS[$idx]=$(( ${PLATFORM_RESULTS[$idx]:-0} + 1 ))
 		fi
+		idx+=1
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then
 			set -e
@@ -173,23 +174,34 @@ java -version
 
 download_bob
 
-PROJECTS=(${PROJECTS//,/ })
-for project in ${PROJECTS[@]}; do
-	download_project $project
-	build_project $PLATFORMS $project debug
-	build_project $PLATFORMS $project release
-	build_project $PLATFORMS $project headless
-	rm -rf $BUILD_FOLDER
-done
+shuffled_platform=$(shuffle $PLATFORMS)
 
-check_failed_builds
+if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
+	arr_len=${#shuffled_platform[@]}
+	for (( idx=0; idx<arr_len; idx++ )); do
+		PLATFORM_RESULTS+=(0)
+	done
+fi
+
+download_project $PROJECT
+build_project $shuffled_platform $PROJECT debug
+build_project $shuffled_platform $PROJECT release
+build_project $shuffled_platform $PROJECT headless
+rm -rf $BUILD_FOLDER
 
 if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	success_platform=()
-	for platform in $PLATFORMS; do
-		if [ ${PLATFORM_RESULTS[$platform]} -eq 3 ]; then
+	idx=0
+	splitted_platforms=(${shuffled_platform//,/ })
+	for platform in $splitted_platforms; do
+		echo "${platform}=${PLATFORM_RESULTS[$idx]}"
+		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
 			success_platform+=(${platform})
 		fi
+		idx+=1
 	done
-	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platform
+	echo $(IFS=,; echo "${success_platform[*]}")
+	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platforms
 fi
+
+check_failed_builds

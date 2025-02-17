@@ -120,7 +120,7 @@ jobs:
         env:
           CHANNEL: ${{ inputs.channel }}
           BUILD_SERVER: ${{ inputs.build_server }}
-          PROJECTS: ${{ matrix.projects.url }}
+          PROJECT: ${{ matrix.projects.url }}
           EXTENDER_HEADER_NAME: ${{ secrets.extender_header_name }}
           EXTENDER_HEADER_VALUE: ${{ secrets.extender_header_value }}
 
@@ -130,7 +130,7 @@ jobs:
         uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
         with:
           key: ${{ matrix.projects.name }}-${{ steps.versions.outputs.extension_sha }}-${{ steps.versions.outputs.extender_sha }}-${{ steps.versions.outputs.engine_sha }}
-          path: ${{ github.workspace }}/extender_success_platform
+          path: ${{ github.workspace }}/extender_success_platforms
           lookup-only: false
 
       - name: Define platforms to build
@@ -139,7 +139,7 @@ jobs:
           PLATFORM_TO_BUILD="js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android"
           CACHE_FOUND=${{ steps.build-result.outputs.cache-hit }}
           if [[ $CACHE_FOUND == "true" ]]; then
-            CACHE_FILE=${{ github.workspace }}/extender_success_platform
+            CACHE_FILE=${{ github.workspace }}/extender_success_platforms
             CACHE_CONTENT=$(cat $CACHE_FILE)
             echo "Found cached results for platforms: $CACHE_CONTENT"
             platforms_to_check=("js-web" "x86_64-win32" "x86_64-linux" "x86_64-macos" "arm64-macos" "arm64-ios" "armv7-android")
@@ -150,15 +150,18 @@ jobs:
               fi
             done
             PLATFORM_TO_BUILD=$(IFS=,; echo "${result_platforms[*]}")
+            rm ${{ github.workspace }}/extender_success_platforms
           else
             echo "No cached results was found. Build all platforms"
           fi
           echo "Platforms to build: $PLATFORM_TO_BUILD"
           echo "platforms=$PLATFORM_TO_BUILD" >> "$GITHUB_OUTPUT"
 
+
       - name: Create project url
         id: project-url
         run: echo "project_url=${{ matrix.projects.url }}/archive/refs/heads/${{ matrix.projects.head }}.zip" >> "$GITHUB_OUTPUT"
+
       - name: Run tests ${{ inputs.channel }}
         if: ${{ steps.define-platform.outputs.platforms != '' }}
         run: ./run-tests.sh
@@ -173,7 +176,7 @@ jobs:
       - name: Cache build success information
         uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57
         with:
-          path: ${{ github.workspace }}/extender_success_platform
+          path: ${{ github.workspace }}/extender_success_platforms
           key: ${{ matrix.projects.name }}-${{ steps.versions.outputs.extension_sha }}-${{ steps.versions.outputs.extender_sha }}-${{ steps.versions.outputs.engine_sha }}
       - name: Notify if tests failed
         if: failure()  

@@ -10,3 +10,5 @@ Thumbs.db
 builtins
 *.der
 bob*.jar
+extender_success_platforms
+errors.txt

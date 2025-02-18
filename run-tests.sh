@@ -158,7 +158,7 @@ build_project() {
 		if [[ $bob_exit_code -eq 0 && "${GITHUB_ACTIONS:-false}" == "true" ]]; then
 			PLATFORM_RESULTS[$idx]=$(( ${PLATFORM_RESULTS[$idx]:-0} + 1 ))
 		fi
-		idx+=1
+		idx=$((idx+1))
 
 		if [ "$HANDLE_ERRORS" == "true" ]; then
 			set -e
@@ -197,8 +197,6 @@ if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	idx=0
 
 	for platform in ${splitted_platforms[@]}; do
-		echo $idx
-		echo "${platform}=${PLATFORM_RESULTS[$idx]}"
 		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
 			success_platform+=(${platform})
 		fi

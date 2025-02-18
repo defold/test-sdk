@@ -5,6 +5,8 @@ set -e
 source ./build.sh
 
 declare PLATFORM_RESULTS=()
+# store how many times we call build_project
+declare BUILD_VARIANT_COUNT=0
 
 # Can be set as environment variable
 if [ -z "$BUILD_SERVER" ]; then
@@ -142,6 +144,7 @@ build_project() {
 	local projectdir="$(dirname $projectfile)"
 	pushd $projectdir
 
+	BUILD_VARIANT_COUNT=$((BUILD_VARIANT_COUNT+1))
 	resolve
 
 	local idx=0
@@ -197,7 +200,7 @@ if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 	idx=0
 
 	for platform in ${splitted_platforms[@]}; do
-		if [ ${PLATFORM_RESULTS[$idx]} -eq 3 ]; then
+		if [ ${PLATFORM_RESULTS[$idx]} -eq $BUILD_VARIANT_COUNT ]; then
 			success_platform+=(${platform})
 		fi
 		idx=$((idx+1))

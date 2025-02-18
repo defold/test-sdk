@@ -181,7 +181,7 @@ jobs:
         run: |
           CACHED_CONTENT=${{ steps.define-platform.outputs.cached_result }}
           splitted_cached_platforms=(${CACHED_CONTENT//,/ })
-          CURRENT_BUILD_RESULT=$(cat ${{ github.workspace }}/extender_success_platforms)
+          CURRENT_BUILD_RESULT=$(cat ${{ github.workspace }}/succeeded_platforms)
           splitted_current_platforms=(${CURRENT_BUILD_RESULT//,/ })
           merged_result=()
           for str in ${splitted_cached_platforms[@]}; do

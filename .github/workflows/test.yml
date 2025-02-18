@@ -37,56 +37,56 @@ jobs:
           #{ name: 'Texturepacker', url: 'https://github.com/defold/extension-texturepacker/archive/refs/heads/main.zip' },
           #{ name: 'Rive', url: 'https://github.com/defold/extension-rive/archive/master.zip' },
           
-          # { name: 'AdInfo', url: 'https://github.com/defold/extension-adinfo', head: 'master' },
-          # { name: 'AdMob', url: 'https://github.com/defold/extension-admob',  head: 'master' },
-          # { name: 'Camera', url: 'https://github.com/defold/extension-camera', head: 'master' },
-          # { name: 'Facebook', url: 'https://github.com/defold/extension-facebook', head: 'master' },
-          # { name: 'FBInstance', url: 'https://github.com/defold/extension-fbinstant', head: 'master' },
-          # { name: 'Firebase', url: 'https://github.com/defold/extension-firebase', head: 'master' },
-          # { name: 'Firebase analytics', url: 'https://github.com/defold/extension-firebase-analytics', head: 'master' },
-          # { name: 'Firebase remote config', url: 'https://github.com/defold/extension-firebase-remoteconfig', head: 'master' },
-          # { name: 'GP Instant', url: 'https://github.com/defold/extension-googleplayinstant', head: 'master' },
-          # { name: 'GPGS', url: 'https://github.com/defold/extension-gpgs', head: 'master' },
-          # { name: 'HTML5', url: 'https://github.com/defold/extension-html5', head: 'master' },
-          # { name: 'IAC', url: 'https://github.com/defold/extension-iac', head: 'master' },
-          # { name: 'IAP', url: 'https://github.com/defold/extension-iap', head: 'master' },
-          # { name: 'KaiAds', url: 'https://github.com/defold/extension-kaiads', head: 'main' },
-          # { name: 'KaiOS', url: 'https://github.com/defold/extension-kaios', head: 'main' },
-          # { name: 'Crypt', url: 'https://github.com/defold/extension-crypt', head: 'master' },
-          # { name: 'Poco', url: 'https://github.com/defold/extension-poco', head: 'master' },
-          # { name: 'Push', url: 'https://github.com/defold/extension-push', head: 'master' },
-          # { name: 'Review', url: 'https://github.com/defold/extension-review', head: 'master' },
-          # { name: 'SafeArea', url: 'https://github.com/defold/extension-safearea', head: 'master' },
-          # { name: 'Siwa', url: 'https://github.com/defold/extension-siwa', head: 'master' },
-          # { name: 'Videoplayer', url: 'https://github.com/defold/extension-videoplayer-native', head: 'master' },
-          # { name: 'Webmonetization', url: 'https://github.com/defold/extension-webmonetization', head: 'master' },
-          # { name: 'Websocket', url: 'https://github.com/defold/extension-websocket', head: 'master' },
-          # { name: 'Webview', url: 'https://github.com/defold/extension-webview', head: 'master' },
-          # { name: 'Template NE', url: 'https://github.com/defold/template-native-extension', head: 'master' },
-          # { name: 'Screenshot', url: 'https://github.com/britzl/defold-screenshot', head: 'master' },
-          # { name: 'LuaSec', url: 'https://github.com/britzl/defold-luasec', head: 'master' },
-          # { name: 'Sharing', url: 'https://github.com/britzl/defold-sharing', head: 'master' },
-          # { name: 'Imgui', url: 'https://github.com/britzl/extension-imgui', head: 'master' },
-          # { name: 'VideoAds', url: 'https://github.com/AGulev/DefVideoAds', head: 'master' },
-          # { name: 'Defos', url: 'https://github.com/subsoap/defos', head: 'master' },
-          # { name: 'Directories', url: 'https://github.com/Lerg/extension-directories', head: 'master' },
-          # { name: 'FMOD', url: 'https://github.com/dapetcu21/defold-fmod', head: 'master' },
+          { name: 'AdInfo', url: 'https://github.com/defold/extension-adinfo', head: 'master' },
+          { name: 'AdMob', url: 'https://github.com/defold/extension-admob',  head: 'master' },
+          { name: 'Camera', url: 'https://github.com/defold/extension-camera', head: 'master' },
+          { name: 'Facebook', url: 'https://github.com/defold/extension-facebook', head: 'master' },
+          { name: 'FBInstance', url: 'https://github.com/defold/extension-fbinstant', head: 'master' },
+          { name: 'Firebase', url: 'https://github.com/defold/extension-firebase', head: 'master' },
+          { name: 'Firebase analytics', url: 'https://github.com/defold/extension-firebase-analytics', head: 'master' },
+          { name: 'Firebase remote config', url: 'https://github.com/defold/extension-firebase-remoteconfig', head: 'master' },
+          { name: 'GP Instant', url: 'https://github.com/defold/extension-googleplayinstant', head: 'master' },
+          { name: 'GPGS', url: 'https://github.com/defold/extension-gpgs', head: 'master' },
+          { name: 'HTML5', url: 'https://github.com/defold/extension-html5', head: 'master' },
+          { name: 'IAC', url: 'https://github.com/defold/extension-iac', head: 'master' },
+          { name: 'IAP', url: 'https://github.com/defold/extension-iap', head: 'master' },
+          { name: 'KaiAds', url: 'https://github.com/defold/extension-kaiads', head: 'main' },
+          { name: 'KaiOS', url: 'https://github.com/defold/extension-kaios', head: 'main' },
+          { name: 'Crypt', url: 'https://github.com/defold/extension-crypt', head: 'master' },
+          { name: 'Poco', url: 'https://github.com/defold/extension-poco', head: 'master' },
+          { name: 'Push', url: 'https://github.com/defold/extension-push', head: 'master' },
+          { name: 'Review', url: 'https://github.com/defold/extension-review', head: 'master' },
+          { name: 'SafeArea', url: 'https://github.com/defold/extension-safearea', head: 'master' },
+          { name: 'Siwa', url: 'https://github.com/defold/extension-siwa', head: 'master' },
+          { name: 'Videoplayer', url: 'https://github.com/defold/extension-videoplayer-native', head: 'master' },
+          { name: 'Webmonetization', url: 'https://github.com/defold/extension-webmonetization', head: 'master' },
+          { name: 'Websocket', url: 'https://github.com/defold/extension-websocket', head: 'master' },
+          { name: 'Webview', url: 'https://github.com/defold/extension-webview', head: 'master' },
+          { name: 'Template NE', url: 'https://github.com/defold/template-native-extension', head: 'master' },
+          { name: 'Screenshot', url: 'https://github.com/britzl/defold-screenshot', head: 'master' },
+          { name: 'LuaSec', url: 'https://github.com/britzl/defold-luasec', head: 'master' },
+          { name: 'Sharing', url: 'https://github.com/britzl/defold-sharing', head: 'master' },
+          { name: 'Imgui', url: 'https://github.com/britzl/extension-imgui', head: 'master' },
+          { name: 'VideoAds', url: 'https://github.com/AGulev/DefVideoAds', head: 'master' },
+          { name: 'Defos', url: 'https://github.com/subsoap/defos', head: 'master' },
+          { name: 'Directories', url: 'https://github.com/Lerg/extension-directories', head: 'master' },
+          { name: 'FMOD', url: 'https://github.com/dapetcu21/defold-fmod', head: 'master' },
 
-          # { name: 'Poki SDK', url: 'https://github.com/defold/extension-poki-sdk', head: 'main' },
-          # { name: 'Ironsource', url: 'https://github.com/defold/extension-ironsource', head: 'main' },
-          # { name: 'Zendesk', url: 'https://github.com/defold/extension-zendesk', head: 'master' },
-          # { name: 'Steam', url: 'https://github.com/defold/extension-steam', head: 'master' },
-          # { name: 'Simpledata', url: 'https://github.com/defold/extension-simpledata', head: 'main' },
-          # { name: 'Permissions', url: 'https://github.com/defold/extension-permissions', head: 'master' },
+          { name: 'Poki SDK', url: 'https://github.com/defold/extension-poki-sdk', head: 'main' },
+          { name: 'Ironsource', url: 'https://github.com/defold/extension-ironsource', head: 'main' },
+          { name: 'Zendesk', url: 'https://github.com/defold/extension-zendesk', head: 'master' },
+          { name: 'Steam', url: 'https://github.com/defold/extension-steam', head: 'master' },
+          { name: 'Simpledata', url: 'https://github.com/defold/extension-simpledata', head: 'main' },
+          { name: 'Permissions', url: 'https://github.com/defold/extension-permissions', head: 'master' },
                     
           # Disabled until GA-SDK-DEFOLD supports both x86_64-osx and arm64-osx
           # https://github.com/GameAnalytics/GA-SDK-DEFOLD/issues/40
           #'https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/master.zip',
                     
           # Bob.jar plugins:
-          # { name: 'Lua preprocessor', url: 'https://github.com/defold/extension-lua-preprocessor', head: 'main' },
-          # { name: 'Prometheus', url: 'https://github.com/defold/extension-prometheus', head: 'master' },
-          # { name: 'Resource encryption', url: 'https://github.com/defold/extension-resource-encryption', head: 'master' },
+          { name: 'Lua preprocessor', url: 'https://github.com/defold/extension-lua-preprocessor', head: 'main' },
+          { name: 'Prometheus', url: 'https://github.com/defold/extension-prometheus', head: 'master' },
+          { name: 'Resource encryption', url: 'https://github.com/defold/extension-resource-encryption', head: 'master' },
         ]
     name: ${{ matrix.projects.name }}
     steps:
@@ -202,11 +202,11 @@ jobs:
         with:
           path: ${{ github.workspace }}/extender_success_platforms
           key: ${{ matrix.projects.name }}-${{ steps.versions.outputs.extension_sha }}-${{ steps.versions.outputs.extender_sha }}-${{ steps.versions.outputs.engine_sha }}
-      # - name: Notify if tests failed
-      #   if: failure()  
-      #   uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65
-      #   with:
-      #     type: ${{ job.status }}
-      #     job_name: 'SDK tests ${{ inputs.channel }}'
-      #     channel: '#defold-alarms-build'
-      #     url: ${{ secrets.slack_webhook }}
+      - name: Notify if tests failed
+        if: failure()  
+        uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65
+        with:
+          type: ${{ job.status }}
+          job_name: 'SDK tests ${{ inputs.channel }}'
+          channel: '#defold-alarms-build'
+          url: ${{ secrets.slack_webhook }}

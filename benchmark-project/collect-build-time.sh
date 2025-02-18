@@ -24,9 +24,6 @@ if [ -z "$PLATFORMS" ]; then
 fi
 log "Using platforms ${PLATFORMS}"
 
-# Replace new lines with comma
-PROJECTS=$(echo $PROJECTS | tr '\n' ',' | tr ' ' ',')
-
 if [ -z "$CHANNEL" ]; then
 	CHANNEL=alpha
 fi

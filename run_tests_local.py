@@ -58,7 +58,7 @@ failed_tests = []
 def test_project(project):
     print("Testing project:", project, os.environ['BUILD_SERVER'], os.environ['PLATFORMS'])
     env = dict(os.environ)
-    env['PROJECTS'] = project
+    env['PROJECT'] = project
     env['HANDLE_ERRORS'] = 'false'
 
     print("-----------------------------------------------------------------------")

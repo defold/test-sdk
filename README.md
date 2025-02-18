@@ -8,6 +8,6 @@
 ## How to test locally
 
 
-`PROJECTS` is a comma separated list.
+`PROJECT` is url to project's sources archive.
 
-    BUILD_SERVER=http://localhost:9010 PROJECTS=https://github.com/defold/extension-webview/archive/master.zip SHA1=74f260242b3a3f16a0aa38889dc5147c5567864a ./run-tests.sh x86_64-macos
+    BUILD_SERVER=http://localhost:9010 PROJECT=https://github.com/defold/extension-webview/archive/master.zip SHA1=74f260242b3a3f16a0aa38889dc5147c5567864a ./run-tests.sh x86_64-macos

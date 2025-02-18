@@ -158,6 +158,8 @@ jobs:
           echo "Platforms to build: $PLATFORM_TO_BUILD"
           echo "platforms=$PLATFORM_TO_BUILD" >> "$GITHUB_OUTPUT"
           echo "cached_result=$CACHE_CONTENT" >> "$GITHUB_OUTPUT"
+        env:
+            GH_TOKEN: ${{ github.token }}
 
       - name: Create project url
         id: project-url

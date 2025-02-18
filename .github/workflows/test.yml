@@ -162,6 +162,7 @@ jobs:
             GH_TOKEN: ${{ github.token }}
 
       - name: Create project url
+        if: ${{ steps.define-platform.outputs.platforms != '' }}
         id: project-url
         run: echo "project_url=${{ matrix.projects.url }}/archive/refs/heads/${{ matrix.projects.head }}.zip" >> "$GITHUB_OUTPUT"
 
@@ -181,15 +182,17 @@ jobs:
         run: |
           CACHED_CONTENT=${{ steps.define-platform.outputs.cached_result }}
           splitted_cached_platforms=(${CACHED_CONTENT//,/ })
-          CURRENT_BUILD_RESULT=$(cat ${{ github.workspace }}/succeeded_platforms)
-          splitted_current_platforms=(${CURRENT_BUILD_RESULT//,/ })
           merged_result=()
           for str in ${splitted_cached_platforms[@]}; do
             merged_result+=($str)
           done
-          for str in ${splitted_current_platforms[@]}; do
-            merged_result+=($str)
-          done
+          if [ -f ${{ github.workspace }}/succeeded_platforms ]; then
+            CURRENT_BUILD_RESULT=$(cat ${{ github.workspace }}/succeeded_platforms)
+            splitted_current_platforms=(${CURRENT_BUILD_RESULT//,/ })
+            for str in ${splitted_current_platforms[@]}; do
+              merged_result+=($str)
+            done
+          fi
           echo "Result platforms: $(IFS=,; echo "${merged_result[*]}")"
           echo $(IFS=,; echo "${merged_result[*]}") >> ${{ github.workspace }}/extender_success_platforms
 

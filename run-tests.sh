@@ -206,7 +206,7 @@ if [ ${GITHUB_ACTIONS:-false} == "true" ]; then
 		idx=$((idx+1))
 	done
 	echo $(IFS=,; echo "${success_platform[*]}")
-	echo $(IFS=,; echo "${success_platform[*]}") >> ./extender_success_platforms
+	echo $(IFS=,; echo "${success_platform[*]}") >> ./succeeded_platforms
 fi
 
 check_failed_builds

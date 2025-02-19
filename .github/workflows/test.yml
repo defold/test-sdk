@@ -151,7 +151,7 @@ jobs:
             PLATFORM_TO_BUILD=$(IFS=,; echo "${result_platforms[*]}")
             rm ${{ github.workspace }}/extender_success_platforms
             echo "Remove GH cache"
-            gh cache delete ${{ steps.build-result.outputs.cache-matched-key }}
+            gh cache delete "${{ steps.build-result.outputs.cache-matched-key }}"
           else
             echo "No cached results was found. Build all platforms"
           fi

@@ -135,13 +135,13 @@ jobs:
       - name: Define platforms to build
         id: define-platform
         run: |
-          PLATFORM_TO_BUILD="js-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android"
+          PLATFORM_TO_BUILD="js-web,x86_64-win32,x86_64-linux,arm64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android"
           CACHE_FOUND=${{ steps.build-result.outputs.cache-hit }}
           if [[ $CACHE_FOUND == "true" ]]; then
             CACHE_FILE=${{ github.workspace }}/extender_success_platforms
             CACHE_CONTENT=$(cat $CACHE_FILE)
             echo "Found cached results for platforms: $CACHE_CONTENT"
-            platforms_to_check=("js-web" "x86_64-win32" "x86_64-linux" "x86_64-macos" "arm64-macos" "arm64-ios" "armv7-android")
+            platforms_to_check=("js-web" "x86_64-win32" "x86_64-linux" "arm64-linux" "x86_64-macos" "arm64-macos" "arm64-ios" "armv7-android")
             result_platforms=()
             for str in ${platforms_to_check[@]}; do
               if [[ $CACHE_CONTENT != *$str* ]]; then

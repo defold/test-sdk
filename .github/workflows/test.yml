@@ -85,6 +85,7 @@ jobs:
                     
           # Bob.jar plugins:
           { name: 'Lua preprocessor', url: 'https://github.com/defold/extension-lua-preprocessor', head: 'main' },
+          { name: 'Teal transpiler', url: 'https://github.com/defold/extension-teal', head: 'main' },
           { name: 'Prometheus', url: 'https://github.com/defold/extension-prometheus', head: 'master' },
           { name: 'Resource encryption', url: 'https://github.com/defold/extension-resource-encryption', head: 'master' },
         ]

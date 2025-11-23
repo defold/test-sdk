@@ -45,7 +45,6 @@ jobs:
           { name: 'Firebase', url: 'https://github.com/defold/extension-firebase', head: 'master' },
           { name: 'Firebase analytics', url: 'https://github.com/defold/extension-firebase-analytics', head: 'master' },
           { name: 'Firebase remote config', url: 'https://github.com/defold/extension-firebase-remoteconfig', head: 'master' },
-          { name: 'GP Instant', url: 'https://github.com/defold/extension-googleplayinstant', head: 'master' },
           { name: 'GPGS', url: 'https://github.com/defold/extension-gpgs', head: 'master' },
           { name: 'HTML5', url: 'https://github.com/defold/extension-html5', head: 'master' },
           { name: 'IAC', url: 'https://github.com/defold/extension-iac', head: 'master' },

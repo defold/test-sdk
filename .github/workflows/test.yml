@@ -69,8 +69,7 @@ jobs:
           { name: 'VideoAds', url: 'https://github.com/AGulev/DefVideoAds', head: 'master' },
           { name: 'Defos', url: 'https://github.com/subsoap/defos', head: 'master' },
           { name: 'Directories', url: 'https://github.com/Lerg/extension-directories', head: 'master' },
-          # { name: 'FMOD', url: 'https://github.com/dapetcu21/defold-fmod', head: 'master' },
-
+          { name: 'FMOD', url: 'https://github.com/defold/extension-fmod', head: 'master' },
           { name: 'Poki SDK', url: 'https://github.com/defold/extension-poki-sdk', head: 'main' },
           { name: 'Ironsource', url: 'https://github.com/defold/extension-ironsource', head: 'main' },
           { name: 'Zendesk', url: 'https://github.com/defold/extension-zendesk', head: 'master' },

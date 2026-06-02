@@ -10,9 +10,12 @@ PROJECTS=[
     'https://github.com/defold/extension-camera/archive/master.zip',
     'https://github.com/defold/extension-facebook/archive/master.zip',
     'https://github.com/defold/extension-fbinstant/archive/master.zip',
+
     'https://github.com/defold/extension-firebase/archive/master.zip',
     'https://github.com/defold/extension-firebase-analytics/archive/master.zip',
     'https://github.com/defold/extension-firebase-remoteconfig/archive/master.zip',
+    'https://github.com/defold/extension-firebase-crashlytics/archive/master.zip',
+
     'https://github.com/defold/extension-googleplayinstant/archive/master.zip',
     'https://github.com/defold/extension-gpgs/archive/master.zip',
     'https://github.com/defold/extension-html5/archive/master.zip',

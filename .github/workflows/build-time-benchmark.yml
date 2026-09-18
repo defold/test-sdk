@@ -12,9 +12,9 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
-          java-version: '25'
+          java-version: "25"
           architecture: x64
-          distribution: 'temurin'
+          distribution: "temurin"
       - name: Login to GCP
         uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093
         with:
@@ -29,7 +29,7 @@ jobs:
         env:
           CHANNEL: stable
           BUILD_SERVER: https://build-stage.defold.com
-          PLATFORMS: 'wasm-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
+          PLATFORMS: "wasm-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android"
           EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
           EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
       - name: Run benchmark (production)
@@ -37,16 +37,17 @@ jobs:
           cd ${{ github.workspace }}/benchmark-project
           ./collect-build-time.sh
         env:
-            CHANNEL: stable
-            BUILD_SERVER: https://build.defold.com
-            PLATFORMS: 'wasm-web,wasm_pthread-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,arm64_sim-ios,armv7-android'
-            EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
-            EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}            
+          CHANNEL: stable
+          BUILD_SERVER: https://build.defold.com
+          PLATFORMS: "wasm-web,wasm_pthread-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,arm64_sim-ios,armv7-android"
+          EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
+          EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}
       - name: Notify if tests failed
         if: failure()
-        uses: homoluctus/slatify@c4847b8c84e3e8076fd3c42cc00517a10426ed65
+        uses: defold/github-actions-common/.github/actions/slatify@aa7a45fadb61a6924e7317c4438215908af6c52a
         with:
           type: ${{ job.status }}
-          job_name: 'Build time benchmark'
-          channel: '#defold-alarms-build'
+          job_name: "Build time benchmark"
+          channel: "#defold-alarms-build"
           url: ${{ secrets.SLACK_WEBHOOK }}
+

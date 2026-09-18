@@ -26,7 +26,7 @@ log "**********************************"
 
 
 if [ -z "$PLATFORMS" ]; then
-	PLATFORMS="armv7-android,arm64-ios,wasm-web,x86_64-win32,x86_64-linux,x86_64-macos"
+	PLATFORMS="armv7-android,arm64-ios,arm64_sim-ios,wasm-web,wasm_pthread-wasm,x86_64-win32,x86_64-linux,x86_64-macos"
 fi
 log "Using platforms ${PLATFORMS}"
 

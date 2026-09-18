@@ -39,7 +39,7 @@ jobs:
         env:
             CHANNEL: stable
             BUILD_SERVER: https://build.defold.com
-            PLATFORMS: 'wasm-web,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,armv7-android'
+            PLATFORMS: 'wasm-web,wasm_pthread-wasm,x86_64-win32,x86_64-linux,x86_64-macos,arm64-macos,arm64-ios,arm64_sim-ios,armv7-android'
             EXTENDER_HEADER_NAME: ${{ secrets.EXTENDER_HEADER_NAME }}
             EXTENDER_HEADER_VALUE: ${{ secrets.EXTENDER_HEADER_VALUE }}            
       - name: Notify if tests failed

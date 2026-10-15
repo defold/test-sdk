@@ -140,9 +140,9 @@ build_project() {
 	local url=$2
 	local variant=$3
 
-	local projectfile=`find $BUILD_FOLDER/$name -name game.project`
-	local projectdir="$(dirname $projectfile)"
-	pushd $projectdir
+	local projectfile=$(find "$BUILD_FOLDER/$name" -name game.project | awk -F/ '{print NF, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+	local projectdir="$(dirname "$projectfile")"
+	pushd "$projectdir"
 
 	BUILD_VARIANT_COUNT=$((BUILD_VARIANT_COUNT+1))
 	resolve
